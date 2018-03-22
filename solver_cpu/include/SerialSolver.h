@@ -24,14 +24,15 @@
 #include <string.h>
 #include <stdio.h>
 #include <iostream>
-#include "tuple.h"
-#include "testing.h"
+#include <cmath>
+#include "utils.h"
 
 class SerialSolver
 {
 public:
     SerialSolver();
     ~SerialSolver();
+    std::vector<vec3> makeDiagram(vec2 _imageDims, uint _numCells);
 };
 
 

@@ -51,8 +51,10 @@ OBJECTS_DIR   = obj/
 
 ####### Files
 
-SOURCES       = src/SerialSolver.cpp 
-OBJECTS       = obj/SerialSolver.o
+SOURCES       = src/SerialSolver.cpp \
+		src/utils.cpp 
+OBJECTS       = obj/SerialSolver.o \
+		obj/utils.o
 DIST          = /opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.9.0/5.9/gcc_64/mkspecs/common/unix.conf \
 		/opt/Qt5.9.0/5.9/gcc_64/mkspecs/common/linux.conf \
@@ -233,7 +235,9 @@ DIST          = /opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/exceptions.prf \
 		/opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/yacc.prf \
 		/opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/lex.prf \
-		solver_cpu.pro include/SerialSolver.h src/SerialSolver.cpp
+		solver_cpu.pro include/SerialSolver.h \
+		include/utils.h src/SerialSolver.cpp \
+		src/utils.cpp
 QMAKE_TARGET  = solver_cpu
 DESTDIR       = ../lib/
 TARGET        = libsolver_cpu.so.1.0.0
@@ -653,8 +657,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents include/SerialSolver.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/SerialSolver.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents include/SerialSolver.h include/utils.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/SerialSolver.cpp src/utils.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -707,6 +711,19 @@ obj/SerialSolver.o: src/SerialSolver.cpp include/SerialSolver.h \
 		../Common/tuple.h \
 		../Common/testing.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/SerialSolver.o src/SerialSolver.cpp
+
+obj/utils.o: src/utils.cpp include/utils.h \
+		../Common/glm/vec3.hpp \
+		../Common/glm/detail/type_vec3.hpp \
+		../Common/glm/detail/type_vec.hpp \
+		../Common/glm/detail/precision.hpp \
+		../Common/glm/detail/setup.hpp \
+		../Common/glm/simd/platform.h \
+		../Common/glm/detail/type_int.hpp \
+		../Common/glm/detail/_swizzle.hpp \
+		../Common/glm/detail/_swizzle_func.hpp \
+		../Common/glm/detail/type_vec3.inl
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/utils.o src/utils.cpp
 
 ####### Install
 

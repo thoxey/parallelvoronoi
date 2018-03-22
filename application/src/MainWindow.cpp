@@ -41,6 +41,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent * _event)
 void MainWindow::mousePressEvent(QMouseEvent * _event)
 {
   m_gl->mouseClick(_event);
+
 }
 
 //----------------------------------------------------------------------------------------------------------------------

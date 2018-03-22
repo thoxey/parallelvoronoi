@@ -23,7 +23,8 @@ HEADERS += include/CudaSolver.h \
     include/CudaSolver.cuh
 
 ## CUDA_SOURCES - the source (generally .cu) files for nvcc. No spaces in path names
-CUDA_SOURCES += cudasrc/CudaSolver.cu
+CUDA_SOURCES += cudasrc/CudaSolver.cu \
+                CudaSolverKernels.cu
 
 
 # Link with the following libraries
@@ -96,4 +97,5 @@ includeinstall.commands = mkdir -p $$INC_INSTALL_DIR && cp include/*.h $$INC_INS
 QMAKE_EXTRA_TARGETS += includeinstall
 POST_TARGETDEPS += includeinstall
 
-DISTFILES +=
+DISTFILES += \
+    cudasrc/CudaSolverKernels.cu

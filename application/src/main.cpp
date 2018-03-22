@@ -19,68 +19,8 @@
 #include <QApplication>
 #include "MainWindow.h"
 
-#include <random>
-#include <glm.hpp>
-#include <gtc/matrix_transform.hpp>
-#include <gtc/type_ptr.hpp>
-#include <ext.hpp>
-#include <GpuSolver.h>
-
-#define randomTest 0
-
 int main( int argc, char *argv[] )
 {
-
-#if randomTest
-  //------------------------------------------------------------------------------------------------- begin test
-  enum MODE { CPU, GPU, BOTH };
-  MODE mode = BOTH;
-
-  if ( argc < 2 )
-  {
-    std::cerr << "Usage: test <num floats>\n";
-    return EXIT_FAILURE;
-  }
-
-  uint N = std::stoi( argv[1] );
-
-  // Some stuff we need to perform timings
-  struct timeval time;
-  double before, after;
-
-  if ( mode != GPU )
-  {
-    std::vector<float> vec_cpu( N );
-
-    // Time a function and output the result
-    gettimeofday( &time, NULL );
-    before = time.tv_sec + ( time.tv_usec * 1e-6 );
-    Rand_CPU::randFloats( vec_cpu );
-
-    gettimeofday( &time, NULL );
-    after = time.tv_sec + ( time.tv_usec * 1e-6 );
-    double cpuTime = after - before;
-    std::cout << "CPU took " << cpuTime << '\n';
-    Pippo p;
-    p.print();
-  }
-
-  if ( mode != CPU )
-  {
-    std::vector<float> vec_gpu(N);
-
-    // Time a function and output the result
-    gettimeofday( &time, NULL );
-    before = time.tv_sec + ( time.tv_usec * 1e-6 );
-    Rand_GPU::randFloats( vec_gpu );
-
-    gettimeofday( &time, NULL );
-    after = time.tv_sec + ( time.tv_usec * 1e-6 );
-    double gpuTime = after - before;
-    std::cout << "GPU took " << gpuTime << '\n';
-  }
-  //------------------------------------------------------------------------------------------------- end test
-#endif
 
   // create an OpenGL format specifier
   QSurfaceFormat format;

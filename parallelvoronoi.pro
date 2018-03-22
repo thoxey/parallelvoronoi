@@ -1,4 +1,4 @@
 TEMPLATE = subdirs
-SUBDIRS = solver_gpu solver_cpu application
+SUBDIRS =  solver_cpu application #solver_gpu
 OTHER_FILES += Common
 

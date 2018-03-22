@@ -17,10 +17,8 @@ LIBS += -L/public/devel/lib -lbenchmark
 
 # Include headers
 HEADERS += include/*.h
-
 # Include source files
 SOURCES += src/*.cpp
-
 # Set up the include path
 INCLUDEPATH += include \
 							 $$PWD/../Common \

@@ -20,8 +20,12 @@ GLWindow::GLWindow( QWidget *_parent ) : QOpenGLWidget( _parent )
     m_camera.setTarget(0.0f, 0.0f, -2.0f);
     m_camera.setEye(0.0f, 0.0f, 0.0f);
 
-    m_image = QPixmap( 128, 128 ).toImage();
+    m_image = QPixmap( 1024 , 1024 ).toImage();
     m_image.fill(Qt::white);
+
+    pixels.reserve(m_image.width()*m_image.height());
+    for(uint i = 0; i < pixels.size(); i++)
+        i = 0;
 
 }
 
@@ -80,14 +84,16 @@ void GLWindow::mouseMove(QMouseEvent * _event)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
+void GLWindow::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    pixels = m_solver.makeDiagram(vec2(m_image.width(), m_image.height()), m_cellCount);
+    update();
+}
 
 void GLWindow::mouseClick(QMouseEvent * _event)
 {
-
     prevX = _event->pos().x();
     prevY = _event->pos().y();
-
-    update();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -169,16 +175,21 @@ void GLWindow::paintGL()
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
 
-    for ( int i = 0; i < m_image.height(); ++i )
+    if(pixels.size() > 0)
     {
-        for ( int j = 0; j < m_image.width(); ++j )
+        for ( int i = 0; i < m_image.height(); ++i )
         {
-            float r,g,b = 0;
+            for ( int j = 0; j < m_image.width(); ++j )
+            {
+                float r,g,b = 0;
+                uint idx = utils::get2DIndex(m_image.width(), uvec2(i,j));
+                r=pixels[idx].x;
+                g=pixels[idx].y;
+                b=pixels[idx].z;
 
-            r = 100;
-            g = 50;
-            b = 255;
-            m_image.setPixel(i,j,qRgb(r,g,b) );
+
+                m_image.setPixel(i,j,qRgb(r,g,b) );
+            }
         }
     }
     auto m_glImage = QGLWidget::convertToGLFormat( m_image );
@@ -267,4 +278,19 @@ void GLWindow::addTexture()
         qWarning("IMAGE IS NULL");
     glBindTexture( GL_TEXTURE_2D, m_textures[m_textures.size()-1] );
     glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, m_glImage.width(), m_glImage.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_glImage.bits() );
+}
+
+vec2 GLWindow::getDimensions()
+{
+    vec2 ret;
+    ret.x = m_image.width();
+    ret.y = m_image.height();
+
+    return ret;
+}
+
+void GLWindow::putPixel(vec3 _colour, uint _x, uint _y)
+{
+    uint idx = _x*(m_image.width()*m_image.height()*_y);
+    pixels[idx] = _colour;
 }

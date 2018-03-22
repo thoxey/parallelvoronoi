@@ -5,6 +5,7 @@
 #include "Shader.h"
 #include "TrackballCamera.h"
 #include "Mesh.h"
+#include "utils.h"
 
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
@@ -14,7 +15,7 @@
 #include <QResizeEvent>
 #include <QEvent>
 #include <memory>
-#include "MacStableSolver.h"
+#include "SerialSolver.h"
 #include <QImage>
 
 
@@ -31,6 +32,7 @@ public :
 
   /// @brief dtor
   ~GLWindow();
+  void mouseDoubleClickEvent(QMouseEvent * _event);
   void mouseMove( QMouseEvent * _event );
   void mouseClick( QMouseEvent * _event );
 
@@ -48,6 +50,10 @@ protected:
   void paintGL();
   void renderScene();
   void renderTexture();
+
+  void putPixel(vec3 _colour, uint _x, uint _y);
+
+  vec2 getDimensions();
 
 private :
   //----------------------------------------------------------------------------------------------------------------------
@@ -100,6 +106,10 @@ private :
   int prevX;
   //----------------------------------------------------------------------------------------------------------------------
   int prevY;
+  //----------------------------------------------------------------------------------------------------------------------
+  std::vector<vec3> pixels;
+  //----------------------------------------------------------------------------------------------------------------------
+   uint m_cellCount = 20;
 };
 
 #endif

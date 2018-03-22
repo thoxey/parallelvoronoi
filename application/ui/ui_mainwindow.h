@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.0
+** Created by: Qt User Interface Compiler version 5.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -90,7 +90,6 @@ public:
         cellCountSB->setObjectName(QStringLiteral("cellCountSB"));
         cellCountSB->setMinimum(1);
         cellCountSB->setMaximum(1000);
-        cellCountSB->setSingleStep(10);
         cellCountSB->setValue(20);
 
         verticalLayout->addWidget(cellCountSB);
@@ -145,7 +144,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 26));
+        menubar->setGeometry(QRect(0, 0, 800, 22));
         MainWindow->setMenuBar(menubar);
 
         retranslateUi(MainWindow);
@@ -155,16 +154,16 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Stable Fluids", Q_NULLPTR));
-        groupBox->setTitle(QApplication::translate("MainWindow", "Options", Q_NULLPTR));
-        cellCountLabel->setText(QApplication::translate("MainWindow", "Cell Count", Q_NULLPTR));
-        groupBox_2->setTitle(QApplication::translate("MainWindow", "Solver", Q_NULLPTR));
-        cpuOpt->setText(QApplication::translate("MainWindow", "CPU Solver", Q_NULLPTR));
-        gpuOpt->setText(QApplication::translate("MainWindow", "Gpu Solver", Q_NULLPTR));
-        genTimeLablab->setText(QApplication::translate("MainWindow", "Generation Time:", Q_NULLPTR));
-        genTimeLab->setText(QApplication::translate("MainWindow", "0.000s", Q_NULLPTR));
-        genButt->setText(QApplication::translate("MainWindow", "Generate", Q_NULLPTR));
-        exportButt->setText(QApplication::translate("MainWindow", "Export Button", Q_NULLPTR));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Stable Fluids", 0));
+        groupBox->setTitle(QApplication::translate("MainWindow", "Options", 0));
+        cellCountLabel->setText(QApplication::translate("MainWindow", "Cell Count", 0));
+        groupBox_2->setTitle(QApplication::translate("MainWindow", "Solver", 0));
+        cpuOpt->setText(QApplication::translate("MainWindow", "CPU Solver", 0));
+        gpuOpt->setText(QApplication::translate("MainWindow", "Gpu Solver", 0));
+        genTimeLablab->setText(QApplication::translate("MainWindow", "Generation Time:", 0));
+        genTimeLab->setText(QApplication::translate("MainWindow", "0.000s", 0));
+        genButt->setText(QApplication::translate("MainWindow", "Generate", 0));
+        exportButt->setText(QApplication::translate("MainWindow", "Export Image", 0));
     } // retranslateUi
 
 };

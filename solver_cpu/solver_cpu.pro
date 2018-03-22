@@ -13,7 +13,7 @@ OBJECTS_DIR = obj
 # This sets the build target directory
 TARGET = $$LIB_INSTALL_DIR/solver_cpu
 
-LIBS += -L/public/devel/lib -lbenchmark
+LIBS += -L/public/devel/lib #-lbenchmark
 
 # Include headers
 HEADERS += include/*.h

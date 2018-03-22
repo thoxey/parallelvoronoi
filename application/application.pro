@@ -49,7 +49,7 @@ UI_DIR = ui
 
 QMAKE_CXXFLAGS += -std=c++11 -Wall -Wextra -pedantic
 
-LIBS += -L$$LIB_INSTALL_DIR -lsolver_cpu -lsolver_gpu
+LIBS += -L$$LIB_INSTALL_DIR -lsolver_cpu #-lsolver_gpu
 linux:LIBS += -lGL -lGLU -lGLEW
 
 QMAKE_RPATHDIR += $$LIB_INSTALL_DIR

@@ -36,10 +36,20 @@ public :
   void mouseMove( QMouseEvent * _event );
   void mouseClick( QMouseEvent * _event );
 
+  void updateDiagram();
+
+  uint getCellCount() const;
+
+  vec2 getDimensions();
+
+  //----------------------------------------------------------------------------------------------------------------------
+  SerialSolver m_solver;
+
 public slots:
-  //  void rotating( const bool _rotating ) { m_rotating = _rotating; }
+
   void init();
   void reset();
+  void setCellCount(const uint &cellCount);
 
 protected:
   /// @brief  The following methods must be implimented in the sub class
@@ -52,8 +62,6 @@ protected:
   void renderTexture();
 
   void putPixel(vec3 _colour, uint _x, uint _y);
-
-  vec2 getDimensions();
 
 private :
   //----------------------------------------------------------------------------------------------------------------------
@@ -92,8 +100,6 @@ private :
   TrackballCamera m_camera;
   //----------------------------------------------------------------------------------------------------------------------
   int m_amountVertexData;
-  //----------------------------------------------------------------------------------------------------------------------
-  SerialSolver m_solver;
   //----------------------------------------------------------------------------------------------------------------------
   QImage m_image;
   //----------------------------------------------------------------------------------------------------------------------

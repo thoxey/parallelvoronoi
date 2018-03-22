@@ -9,6 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
     m_ui -> setupUi(this);
     m_gl = new GLWindow(this);
     m_ui -> s_mainWindowGridLayout -> addWidget(m_gl,0,0,3,5);
+    connect( m_ui->genButt, SIGNAL( clicked(bool)), m_gl, SLOT(updateDiagram()));
+
+    connect( m_ui->cellCountSB,SIGNAL(valueChanged( double )), m_gl, SLOT(setCellCount(uint)));
 }
 
 MainWindow::~MainWindow()
@@ -25,6 +28,7 @@ void MainWindow::keyPressEvent(QKeyEvent *_event)
   switch ( _event->key() )
   {
     case Qt::Key_Escape : QApplication::exit(EXIT_SUCCESS); break;
+    case Qt::Key_Space : m_gl->m_solver.makeDiagram(m_gl->getDimensions(), m_gl->getCellCount());
     default : break;
   }
 }

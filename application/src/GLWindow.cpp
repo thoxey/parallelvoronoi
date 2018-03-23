@@ -75,9 +75,9 @@ void GLWindow::mouseMove(QMouseEvent * _event)
     if ( x < 1 ) x = 1;
     if ( y < 1 ) y = 1;
 
-    if ( _event->buttons() == Qt::RightButton )
+    if (_event->buttons() == Qt::RightButton)
         std::cout<<"Right Button Pressed\n";
-    else if ( _event->buttons() == Qt::LeftButton )
+    else if (_event->buttons() == Qt::LeftButton)
         std::cout<<"Left Button Pressed\n";
 
     update();
@@ -240,6 +240,17 @@ void GLWindow::reset()
 
 //------------------------------------------------------------------------------------------------------------------------------
 
+void GLWindow::exportImage()
+{
+    QByteArray ba;
+//    QBuffer buffer(&ba);
+//    buffer.open(QIODevice::WriteOnly);
+    if(!m_image.save("export.png", "PNG"))
+        std::cerr<<"Image failed to export.\n";
+}
+
+//------------------------------------------------------------------------------------------------------------------------------
+
 void GLWindow::renderTexture()
 {
     glViewport( 0, 0, width(), height() );
@@ -284,7 +295,7 @@ void GLWindow::addTexture()
     glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, m_glImage.width(), m_glImage.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_glImage.bits() );
 }
 
-void GLWindow::setCellCount(const uint &cellCount)
+void GLWindow::setCellCount(int cellCount)
 {
     m_cellCount = cellCount;
 }

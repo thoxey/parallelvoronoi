@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.9.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -17,6 +17,7 @@
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -46,9 +47,8 @@ public:
     QRadioButton *cpuOpt;
     QRadioButton *gpuOpt;
     QSpacerItem *verticalSpacer;
-    QLabel *genTimeLablab;
-    QLabel *genTimeLab;
     QPushButton *genButt;
+    QLineEdit *imageName;
     QPushButton *exportButt;
     QMenuBar *menubar;
 
@@ -117,21 +117,15 @@ public:
 
         verticalLayout->addItem(verticalSpacer);
 
-        genTimeLablab = new QLabel(groupBox);
-        genTimeLablab->setObjectName(QStringLiteral("genTimeLablab"));
-        genTimeLablab->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        verticalLayout->addWidget(genTimeLablab);
-
-        genTimeLab = new QLabel(groupBox);
-        genTimeLab->setObjectName(QStringLiteral("genTimeLab"));
-
-        verticalLayout->addWidget(genTimeLab);
-
         genButt = new QPushButton(groupBox);
         genButt->setObjectName(QStringLiteral("genButt"));
 
         verticalLayout->addWidget(genButt);
+
+        imageName = new QLineEdit(groupBox);
+        imageName->setObjectName(QStringLiteral("imageName"));
+
+        verticalLayout->addWidget(imageName);
 
         exportButt = new QPushButton(groupBox);
         exportButt->setObjectName(QStringLiteral("exportButt"));
@@ -144,7 +138,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 22));
+        menubar->setGeometry(QRect(0, 0, 800, 26));
         MainWindow->setMenuBar(menubar);
 
         retranslateUi(MainWindow);
@@ -154,16 +148,15 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Stable Fluids", 0));
-        groupBox->setTitle(QApplication::translate("MainWindow", "Options", 0));
-        cellCountLabel->setText(QApplication::translate("MainWindow", "Cell Count", 0));
-        groupBox_2->setTitle(QApplication::translate("MainWindow", "Solver", 0));
-        cpuOpt->setText(QApplication::translate("MainWindow", "CPU Solver", 0));
-        gpuOpt->setText(QApplication::translate("MainWindow", "Gpu Solver", 0));
-        genTimeLablab->setText(QApplication::translate("MainWindow", "Generation Time:", 0));
-        genTimeLab->setText(QApplication::translate("MainWindow", "0.000s", 0));
-        genButt->setText(QApplication::translate("MainWindow", "Generate", 0));
-        exportButt->setText(QApplication::translate("MainWindow", "Export Image", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Voronoi Generator", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("MainWindow", "Options", Q_NULLPTR));
+        cellCountLabel->setText(QApplication::translate("MainWindow", "Cell Count", Q_NULLPTR));
+        groupBox_2->setTitle(QApplication::translate("MainWindow", "Solver", Q_NULLPTR));
+        cpuOpt->setText(QApplication::translate("MainWindow", "CPU Solver", Q_NULLPTR));
+        gpuOpt->setText(QApplication::translate("MainWindow", "GPU Solver", Q_NULLPTR));
+        genButt->setText(QApplication::translate("MainWindow", "Generate", Q_NULLPTR));
+        imageName->setText(QApplication::translate("MainWindow", "imageName", Q_NULLPTR));
+        exportButt->setText(QApplication::translate("MainWindow", "Export Image", Q_NULLPTR));
     } // retranslateUi
 
 };

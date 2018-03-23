@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Stable Fluids</string>
+   <string>Voronoi Generator</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="s_mainWindowGridLayout">
@@ -115,7 +115,7 @@
              <bool>true</bool>
             </property>
             <property name="text">
-             <string>Gpu Solver</string>
+             <string>GPU Solver</string>
             </property>
            </widget>
           </item>
@@ -136,26 +136,16 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="genTimeLablab">
-         <property name="text">
-          <string>Generation Time:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="genTimeLab">
-         <property name="text">
-          <string>0.000s</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="genButt">
          <property name="text">
           <string>Generate</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="imageName">
+         <property name="text">
+          <string>imageName</string>
          </property>
         </widget>
        </item>
@@ -177,7 +167,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

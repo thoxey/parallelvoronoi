@@ -9,9 +9,14 @@ MainWindow::MainWindow(QWidget *parent) :
     m_ui -> setupUi(this);
     m_gl = new GLWindow(this);
     m_ui -> s_mainWindowGridLayout -> addWidget(m_gl,0,0,3,5);
-    connect( m_ui->genButt, SIGNAL( clicked(bool)), m_gl, SLOT(updateDiagram()));
 
-    connect( m_ui->cellCountSB,SIGNAL(valueChanged( double )), m_gl, SLOT(setCellCount(uint)));
+    //QString imageName=m_ui->imageName->text();
+
+    connect(m_ui->exportButt, SIGNAL(clicked(bool)), m_gl, SLOT(exportImage()));
+
+    connect( m_ui->genButt, SIGNAL(clicked(bool)), m_gl, SLOT(updateDiagram()));
+
+    connect( m_ui->cellCountSB,SIGNAL(valueChanged( int )), m_gl, SLOT(setCellCount(int)));
 }
 
 MainWindow::~MainWindow()

@@ -13,3 +13,4 @@
 #include "CudaSolver.h"
 
 //Will put kernels here
+__global__ void k_hello();

@@ -91,7 +91,10 @@ void GLWindow::mouseDoubleClickEvent(QMouseEvent *event)
 }
 void GLWindow::updateDiagram()
 {
-    pixels = m_solver.makeDiagram(vec2(m_image.width(), m_image.height()), m_cellCount);
+    if(m_usingCPU)
+        pixels = m_CPUsolver.makeDiagram(vec2(m_image.width(), m_image.height()), m_cellCount);
+    else
+        m_GPUsolver.hello();
 }
 
 void GLWindow::mouseClick(QMouseEvent * _event)
@@ -293,6 +296,16 @@ void GLWindow::addTexture()
         qWarning("IMAGE IS NULL");
     glBindTexture( GL_TEXTURE_2D, m_textures[m_textures.size()-1] );
     glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, m_glImage.width(), m_glImage.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_glImage.bits() );
+}
+
+bool GLWindow::getUsingCPU() const
+{
+    return m_usingCPU;
+}
+
+void GLWindow::setUsingCPU(bool _usingCPU)
+{
+    m_usingCPU = _usingCPU;
 }
 
 void GLWindow::setCellCount(int cellCount)

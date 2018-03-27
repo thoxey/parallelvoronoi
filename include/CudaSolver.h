@@ -6,6 +6,7 @@ class CUDASolver
 public:
   CUDASolver();
 
+  void hello();
 };
 
 #endif

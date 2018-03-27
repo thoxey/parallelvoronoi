@@ -39,7 +39,7 @@ DISTNAME      = application1.0.0
 DISTDIR = /home/i7469704/parallelvoronoi/application/obj/application1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/i7469704/parallelvoronoi/Common/../lib -Wl,-rpath,/opt/Qt5.9.0/5.9/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/home/i7469704/parallelvoronoi/Common/../lib -lsolver_cpu -lGLU -lGLEW -L/opt/Qt5.9.0/5.9/gcc_64/lib -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/home/i7469704/parallelvoronoi/Common/../lib -lsolver_cpu -lsolver_gpu -lGLU -lGLEW -L/opt/Qt5.9.0/5.9/gcc_64/lib -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -1041,7 +1041,8 @@ moc/moc_MainWindow.cpp: /opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QMainWindow \
 		../Common/glm/gtx/wrap.inl \
 		../Common/glm/gtx/scalar_multiplication.hpp \
 		../Common/glm/gtx/range.hpp \
-		../include/SerialSolver.h \
+		../solver_cpu/include/SerialSolver.h \
+		../solver_gpu/include/CudaSolver.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/QImage \
 		include/MainWindow.h \
 		moc/moc_predefs.h \
@@ -1387,7 +1388,8 @@ moc/moc_GLWindow.cpp: include/Shader.h \
 		../Common/glm/gtx/wrap.inl \
 		../Common/glm/gtx/scalar_multiplication.hpp \
 		../Common/glm/gtx/range.hpp \
-		../include/SerialSolver.h \
+		../solver_cpu/include/SerialSolver.h \
+		../solver_gpu/include/CudaSolver.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/QImage \
 		include/GLWindow.h \
 		moc/moc_predefs.h \
@@ -1413,9 +1415,7 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-obj/main.o: src/main.cpp ../include/rand_cpu.h \
-		../include/rand_gpu.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QApplication \
+obj/main.o: src/main.cpp /opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QApplication \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qapplication.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/qtguiglobal.h \
@@ -1767,7 +1767,8 @@ obj/main.o: src/main.cpp ../include/rand_cpu.h \
 		../Common/glm/gtx/wrap.inl \
 		../Common/glm/gtx/scalar_multiplication.hpp \
 		../Common/glm/gtx/range.hpp \
-		../include/SerialSolver.h \
+		../solver_cpu/include/SerialSolver.h \
+		../solver_gpu/include/CudaSolver.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/QImage
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/main.o src/main.cpp
 
@@ -2116,7 +2117,8 @@ obj/MainWindow.o: src/MainWindow.cpp include/MainWindow.h \
 		../Common/glm/gtx/wrap.inl \
 		../Common/glm/gtx/scalar_multiplication.hpp \
 		../Common/glm/gtx/range.hpp \
-		../include/SerialSolver.h \
+		../solver_cpu/include/SerialSolver.h \
+		../solver_gpu/include/CudaSolver.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/QImage \
 		ui/ui_mainwindow.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtCore/QVariant \
@@ -2158,6 +2160,12 @@ obj/MainWindow.o: src/MainWindow.cpp include/MainWindow.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qrubberband.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QLabel \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qlabel.h \
+		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QLineEdit \
+		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qlineedit.h \
+		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/qtextcursor.h \
+		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/qtextformat.h \
+		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/qtextoption.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QMenuBar \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qmenubar.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qmenu.h \
@@ -2512,7 +2520,8 @@ obj/GLWindow.o: src/GLWindow.cpp include/GLWindow.h \
 		../Common/glm/gtx/wrap.inl \
 		../Common/glm/gtx/scalar_multiplication.hpp \
 		../Common/glm/gtx/range.hpp \
-		../include/SerialSolver.h \
+		../solver_cpu/include/SerialSolver.h \
+		../solver_gpu/include/CudaSolver.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/QImage \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QColorDialog \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qcolordialog.h \

@@ -6,6 +6,11 @@
 #include <sys/time.h>
 #include <time.h>
 
+__global__ void k_hello()
+{
+    printf("pid = %02d ; bid = %d ; bn = %d \n",threadIdx.x, blockIdx.x, blockDim.x);
+}
+
 /*
 std::vector<vec3> SerialSolver::makeDiagram(vec2 _imageDims, uint _numCells)
 {
@@ -69,47 +74,47 @@ std::vector<vec3> SerialSolver::makeDiagram(vec2 _imageDims, uint _numCells)
 //    g_idata[valindex].centroid = __constData[myCentroid].value;
 //}
 
-__global__ void generateDiagram(float _w, float _h, uint _numCells)
-{
-    //    std::vector<vec3> ret;
-    uint pixCount = _w*_h;
-    //    ret.reserve(pixCount);
+//__global__ void generateDiagram(float _w, float _h, uint _numCells)
+//{
+//    //    std::vector<vec3> ret;
+//    uint pixCount = _w*_h;
+//    //    ret.reserve(pixCount);
 
-    //    std::vector<vec2> cellPos;
-    //    cellPos.reserve(_numCells);
-    //    std::vector<vec3> cellColour;
-    //    cellColour.reserve(_numCells);
+//    //    std::vector<vec2> cellPos;
+//    //    cellPos.reserve(_numCells);
+//    //    std::vector<vec3> cellColour;
+//    //    cellColour.reserve(_numCells);
 
-    for(uint i = 0; i < _numCells; i++)
-    {
-        cellPos[i] = vec2(utils::randRange(_imageDims.x), utils::randRange(_imageDims.y));
-        cellColour[i] = vec3(utils::randRange(255), utils::randRange(255), utils::randRange(255));
-    }
+//    for(uint i = 0; i < _numCells; i++)
+//    {
+//        cellPos[i] = vec2(utils::randRange(_imageDims.x), utils::randRange(_imageDims.y));
+//        cellColour[i] = vec3(utils::randRange(255), utils::randRange(255), utils::randRange(255));
+//    }
 
-    uint w = _imageDims.x;
-    uint h = _imageDims.y;
-    uint d = 0;
+//    uint w = _imageDims.x;
+//    uint h = _imageDims.y;
+//    uint d = 0;
 
-    for (uint hh = 0; hh < h; hh++)
-    {
-        for (uint ww = 0; ww < w; ww++)
-        {
-            int ind = -1;
-            uint dist = INT32_MAX;
-            for (size_t it = 0; it < _numCells; it++)
-            {
-                d = utils::DistanceSqrd(cellPos[it], vec2(ww,hh));
-                if (d < dist)
-                {
-                    dist = d;
-                    ind = it;
-                }
-            }
+//    for (uint hh = 0; hh < h; hh++)
+//    {
+//        for (uint ww = 0; ww < w; ww++)
+//        {
+//            int ind = -1;
+//            uint dist = INT32_MAX;
+//            for (size_t it = 0; it < _numCells; it++)
+//            {
+//                d = utils::DistanceSqrd(cellPos[it], vec2(ww,hh));
+//                if (d < dist)
+//                {
+//                    dist = d;
+//                    ind = it;
+//                }
+//            }
 
-            if (ind > -1)
-                ret.push_back(cellColour[ind]);
-            //ret[utils::get2DIndex(_imageDims.x, vec2(ww, hh))] = cellColour[ind];
-        }
-    }
-    return ret;
-}
+//            if (ind > -1)
+//                ret.push_back(cellColour[ind]);
+//            //ret[utils::get2DIndex(_imageDims.x, vec2(ww, hh))] = cellColour[ind];
+//        }
+//    }
+//    return ret;
+//}

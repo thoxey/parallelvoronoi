@@ -7,8 +7,6 @@
 #include <sys/time.h>
 #include <time.h>
 
-#include "rand_cpu.h"
-#include "rand_gpu.h"
 
 #ifdef __APPLE__
 #include <OpenGL/gl3.h>

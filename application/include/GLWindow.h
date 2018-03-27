@@ -15,7 +15,8 @@
 #include <QResizeEvent>
 #include <QEvent>
 #include <memory>
-#include "SerialSolver.h"
+#include "../solver_cpu/include/SerialSolver.h"
+#include "../solver_gpu/include/CudaSolver.h"
 #include <QImage>
 
 
@@ -42,7 +43,11 @@ public :
     vec2 getDimensions();
 
     //----------------------------------------------------------------------------------------------------------------------
-    SerialSolver m_solver;
+    SerialSolver m_CPUsolver;
+    CUDASolver m_GPUsolver;
+
+    bool getUsingCPU() const;
+
 
 public slots:
 
@@ -51,6 +56,7 @@ public slots:
     void setCellCount(int cellCount);
     void updateDiagram();
     void exportImage();
+    void setUsingCPU(bool _usingCPU);
 
 protected:
     /// @brief  The following methods must be implimented in the sub class
@@ -117,6 +123,8 @@ private :
     std::vector<vec3> pixels;
     //----------------------------------------------------------------------------------------------------------------------
     uint m_cellCount = 20;
+
+    bool m_usingCPU = true;
 };
 
 #endif

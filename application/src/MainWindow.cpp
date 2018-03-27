@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect( m_ui->genButt, SIGNAL(clicked(bool)), m_gl, SLOT(updateDiagram()));
 
     connect( m_ui->cellCountSB,SIGNAL(valueChanged( int )), m_gl, SLOT(setCellCount(int)));
+
+    connect(m_ui->cpuOpt,SIGNAL(toggled(bool)), m_gl, SLOT(setUsingCPU(bool)));
 }
 
 MainWindow::~MainWindow()
@@ -33,7 +35,7 @@ void MainWindow::keyPressEvent(QKeyEvent *_event)
   switch ( _event->key() )
   {
     case Qt::Key_Escape : QApplication::exit(EXIT_SUCCESS); break;
-    case Qt::Key_Space : m_gl->m_solver.makeDiagram(m_gl->getDimensions(), m_gl->getCellCount());
+    case Qt::Key_Space : m_gl->m_CPUsolver.makeDiagram(m_gl->getDimensions(), m_gl->getCellCount());
     default : break;
   }
 }

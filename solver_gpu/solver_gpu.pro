@@ -20,11 +20,13 @@ INCLUDEPATH += include ${CUDA_PATH}/include \
                        $$PWD/../Common \
 
 HEADERS += include/CudaSolver.h \
-    include/CudaSolver.cuh
+    include/CudaSolver.cuh \
+    include/cudarand.cuh
 
 ## CUDA_SOURCES - the source (generally .cu) files for nvcc. No spaces in path names
 CUDA_SOURCES += cudasrc/CudaSolver.cu \
-                cudasrc/CudaSolverKernels.cu
+                cudasrc/CudaSolverKernels.cu \
+                cudasrc/cudarand.cu
 
 
 # Link with the following libraries
@@ -58,8 +60,14 @@ isEmpty(CUDA_DIR) {
 CUDA_INC+= $$join(INCLUDEPATH,' -I','-I',' ')
 
 # nvcc flags (ptxas option verbose is always useful)
-NVCCFLAGS = -ccbin $$HOST_COMPILER -m64 -g -G -gencode arch=compute_50,code=sm_50 \
-#-gencode arch=compute_30,code=sm_30 -gencode arch=compute_35,code=sm_35 \
+#Good list of what arch to use here:
+#http://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/
+NVCCFLAGS = -ccbin $$HOST_COMPILER -m64 -g -G \
+-arch=sm_30 \
+#-gencode=arch=compute_20,code=sm_20 \
+#-gencode=arch=compute_30,code=sm_30 \
+#-gencode=arch=compute_50,code=sm_50 \
+-gencode=arch=compute_52,code=sm_52 \
 -gencode arch=compute_$$CUDA_COMPUTE_ARCH,code=sm_$$CUDA_COMPUTE_ARCH --compiler-options -fno-strict-aliasing --compiler-options -fPIC -use_fast_math --std=c++11 #--ptxas-options=-v
 
 # Define the path and binary for nvcc
@@ -100,4 +108,5 @@ QMAKE_EXTRA_TARGETS += includeinstall
 POST_TARGETDEPS += includeinstall
 
 DISTFILES += \
-    cudasrc/CudaSolverKernels.cu
+    cudasrc/CudaSolverKernels.cu \
+    cudasrc/cudarand.cu

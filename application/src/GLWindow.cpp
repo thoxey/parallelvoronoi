@@ -94,7 +94,7 @@ void GLWindow::updateDiagram()
     if(m_usingCPU)
         pixels = m_CPUsolver.makeDiagram(vec2(m_image.width(), m_image.height()), m_cellCount);
     else
-        m_GPUsolver.hello();
+        m_GPUsolver.makeDiagram(uvec2(m_image.width(), m_image.height()), m_cellCount);
 }
 
 void GLWindow::mouseClick(QMouseEvent * _event)

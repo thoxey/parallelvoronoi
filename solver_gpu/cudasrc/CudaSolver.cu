@@ -12,14 +12,14 @@
 CUDASolver::CUDASolver()
 {
 }
-
+//----------------------------------------------------------------------------------------------------------------------
 void CUDASolver::checkCUDAErr()
 {
     cudaError_t err = cudaGetLastError();
     if (err != cudaSuccess)
         printf("Error: %s\n", cudaGetErrorString(err));
 }
-
+//----------------------------------------------------------------------------------------------------------------------
 void CUDASolver::printCudaInfo()
 {
     int runtimeVer, driverVer;
@@ -37,58 +37,74 @@ void CUDASolver::printCudaInfo()
     //End Citation
     std::cout<<"-----------------------------\n";
 }
-
-std::vector<vec3> CUDASolver::makeDiagram(uint _imageDimsX, uint _imageDimsY, uint _cellCount)
+//----------------------------------------------------------------------------------------------------------------------
+std::vector<vec3> CUDASolver::makeDiagram(uint _w, uint _h, uint _cellCount)
 {
+    //Declare host vectors
+    //---------------------------------------------
     thrust::host_vector<uint> h_cellPositions(_cellCount*2);
     h_cellPositions.reserve(_cellCount*2);
 
     thrust::host_vector<uint> h_cellColours(_cellCount*3);
     h_cellPositions.reserve(_cellCount*3);
+    //---------------------------------------------
 
+    //Populate host vectors
+    //---------------------------------------------
     for(uint i = 0; i < _cellCount*2; i++)
     {
         if(i < _cellCount)
-            h_cellPositions[i] = randNum(_imageDimsX);
+            h_cellPositions[i] = randNum(_w);
         else
-            h_cellPositions[i] = randNum(_imageDimsY);
+            h_cellPositions[i] = randNum(_h);
     }
 
     for(uint i = 0; i < _cellCount*3; i++)
     {
         h_cellColours[i] = randNum(255);
     }
+    //---------------------------------------------
 
-    thrust::device_vector<uint> d_cellColours(h_cellColours);
-    uint * d_cellColours_ptr = thrust::raw_pointer_cast(&d_cellColours[0]);
-
+    //Declare and populate device vectors
+    //---------------------------------------------
     thrust::device_vector<uint> d_cellPositions(h_cellPositions);
     uint * d_cellPositions_ptr = thrust::raw_pointer_cast(&d_cellPositions[0]);
 
-    thrust::device_vector<uint> d_results(_imageDimsX * _imageDimsY);
+    thrust::device_vector<uint> d_results(_w * _h);
     uint * d_results_ptr = thrust::raw_pointer_cast(&d_results[0]);
 
-    uint blockCount = std::ceil(_imageDimsX*_imageDimsY)/1024;
+    uint blockCount = std::ceil(_w*_h)/1024;
+    //---------------------------------------------
 
+    //Start Benchmark
+    //---------------------------------------------
     struct timeval tim;
     double t1, t2;
     gettimeofday(&tim, NULL);
     t1=tim.tv_sec+(tim.tv_usec * 0.0000001);
+    //---------------------------------------------
 
-    g_calculateVoronoiDiagram<<<blockCount, (_imageDimsX*_imageDimsY)/blockCount>>>(_cellCount, _imageDimsX, _imageDimsY, d_cellPositions_ptr, d_cellColours_ptr, d_results_ptr);
+    //Launch kernel
+    //---------------------------------------------
+    g_calculateVoronoiDiagram<<<blockCount, (_w*_h)/blockCount>>>(_cellCount, _w, _h, d_cellPositions_ptr, d_results_ptr);
     checkCUDAErr();
     cudaThreadSynchronize();
+    //---------------------------------------------
 
+    //End becnchmark
+    //---------------------------------------------
     gettimeofday(&tim, NULL);
     t2=tim.tv_sec+(tim.tv_usec * 0.0000001);
     std::cout << "GPU Algorithm took: " << t2-t1 << "s for "<<_cellCount<<" cells\n";
+    //---------------------------------------------
 
-
+    //Convert results for display
+    //---------------------------------------------
     thrust::host_vector<uint> h_results(d_results);
 
-    std::vector<vec3> retVec(_imageDimsX * _imageDimsY);
+    std::vector<vec3> retVec(_w * _h);
 
-    for(uint i = 0; i < _imageDimsX * _imageDimsY; i++)
+    for(uint i = 0; i < _w * _h; i++)
     {
         uint r = h_cellColours[h_results[i]];
         uint g = h_cellColours[h_results[i]+_cellCount];
@@ -96,10 +112,10 @@ std::vector<vec3> CUDASolver::makeDiagram(uint _imageDimsX, uint _imageDimsY, ui
 
         retVec[i] = vec3(r, g, b);
     }
-
+    //---------------------------------------------
     return retVec;
 }
-
+//----------------------------------------------------------------------------------------------------------------------
 template<typename T>
 T CUDASolver::randNum(T _max)
 {
@@ -110,11 +126,4 @@ T CUDASolver::randNum(T _max)
     std::uniform_real_distribution<> uniform_dist(0.0, _max);
 
     return uniform_dist(e);
-}
-
-void CUDASolver::hello()
-{
-    k_hello<<<4, 32>>>();
-    checkCUDAErr();
-    cudaThreadSynchronize();
 }

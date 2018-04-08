@@ -21,8 +21,7 @@ INCLUDEPATH += include ${CUDA_PATH}/include \
                        $$PWD/../Common \
 
 HEADERS += include/CudaSolver.h \
-    include/CudaSolver.cuh \
-    include/cudarand.cuh
+    include/CudaSolver.cuh
 
 ## CUDA_SOURCES - the source (generally .cu) files for nvcc. No spaces in path names
 CUDA_SOURCES += cudasrc/CudaSolver.cu \
@@ -109,5 +108,4 @@ QMAKE_EXTRA_TARGETS += includeinstall
 POST_TARGETDEPS += includeinstall
 
 DISTFILES += \
-    cudasrc/CudaSolverKernels.cu \
-    cudasrc/cudarand.cu
+    cudasrc/CudaSolverKernels.cu

@@ -31,5 +31,4 @@ int randFloats(float *&devData, const size_t n)
     CURAND_CALL(curandDestroyGenerator(gen));
     return EXIT_SUCCESS;
 }
-
 }

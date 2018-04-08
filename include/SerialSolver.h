@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <cmath>
+#include<sys/time.h>
 #include "utils.h"
 
 class SerialSolver

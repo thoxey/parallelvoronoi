@@ -9,6 +9,7 @@
 #define __WINT_MAX__ 4294967295U
 #define __ORDER_LITTLE_ENDIAN__ 1234
 #define __SIZE_MAX__ 18446744073709551615UL
+#define __SSE4_1__ 1
 #define __WCHAR_MAX__ 2147483647
 #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1
 #define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
@@ -31,11 +32,13 @@
 #define __UINT_LEAST64_MAX__ 18446744073709551615UL
 #define __SHRT_MAX__ 32767
 #define __LDBL_MAX__ 1.18973149535723176502e+4932L
+#define __POPCNT__ 1
 #define __UINT_LEAST8_MAX__ 255
 #define __GCC_ATOMIC_BOOL_LOCK_FREE 2
 #define __UINTMAX_TYPE__ long unsigned int
 #define __linux 1
 #define __DEC32_EPSILON__ 1E-6DF
+#define __OPTIMIZE__ 1
 #define __unix 1
 #define __UINT32_MAX__ 4294967295U
 #define __GXX_EXPERIMENTAL_CXX0X__ 1
@@ -57,6 +60,7 @@
 #define __GXX_WEAK__ 1
 #define __LDBL_MIN__ 3.36210314311209350626e-4932L
 #define __DEC32_MAX__ 9.999999E96DF
+#define __F16C__ 1
 #define __INT32_MAX__ 2147483647
 #define __SIZEOF_LONG__ 8
 #define __STDC_IEC_559__ 1
@@ -70,11 +74,12 @@
 #define __MMX__ 1
 #define __FLT_HAS_DENORM__ 1
 #define __SIZEOF_LONG_DOUBLE__ 16
-#define __BIGGEST_ALIGNMENT__ 16
+#define __BIGGEST_ALIGNMENT__ 32
 #define __DBL_MAX__ double(1.79769313486231570815e+308L)
 #define __INT_FAST32_MAX__ 9223372036854775807L
 #define __DBL_HAS_INFINITY__ 1
 #define __INT64_MAX__ 9223372036854775807L
+#define __SSE4_2__ 1
 #define __DEC32_MIN_EXP__ (-94)
 #define __INT_FAST16_TYPE__ long int
 #define __LDBL_HAS_DENORM__ 1
@@ -90,6 +95,7 @@
 #define __PTRDIFF_MAX__ 9223372036854775807L
 #define __amd64 1
 #define __STDC_NO_THREADS__ 1
+#define __AVX__ 1
 #define __ATOMIC_HLE_ACQUIRE 65536
 #define __GNUG__ 4
 #define __LONG_LONG_MAX__ 9223372036854775807LL
@@ -99,6 +105,7 @@
 #define __GXX_ABI_VERSION 1002
 #define __FLT_MIN_EXP__ (-125)
 #define __INT_FAST64_TYPE__ long int
+#define __FP_FAST_FMAF 1
 #define __DBL_MIN__ double(2.22507385850720138309e-308L)
 #define __LP64__ 1
 #define __DECIMAL_BID_FORMAT__ 1
@@ -107,13 +114,15 @@
 #define __UINT16_MAX__ 65535
 #define __DBL_HAS_DENORM__ 1
 #define __UINT8_TYPE__ unsigned char
-#define __NO_INLINE__ 1
+#define __XSAVE__ 1
 #define __FLT_MANT_DIG__ 24
 #define __VERSION__ "4.8.5 20150623 (Red Hat 4.8.5-11)"
 #define __UINT64_C(c) c ## UL
+#define __FMA__ 1
 #define _STDC_PREDEF_H 1
 #define __GCC_ATOMIC_INT_LOCK_FREE 2
 #define __FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__
+#define __AVX2__ 1
 #define __STDC_IEC_559_COMPLEX__ 1
 #define __INT32_C(c) c
 #define __DEC64_EPSILON__ 1E-15DD
@@ -162,6 +171,7 @@
 #define __INTPTR_MAX__ 9223372036854775807L
 #define linux 1
 #define __SSE2__ 1
+#define __SSSE3__ 1
 #define __EXCEPTIONS 1
 #define __LDBL_MANT_DIG__ 64
 #define __DBL_HAS_QUIET_NAN__ 1
@@ -214,6 +224,7 @@
 #define __UINT_FAST32_TYPE__ long unsigned int
 #define __CHAR32_TYPE__ unsigned int
 #define __FLT_MAX__ 3.40282346638528859812e+38F
+#define __FP_FAST_FMA 1
 #define __INT32_TYPE__ int
 #define __SIZEOF_DOUBLE__ 8
 #define __INTMAX_TYPE__ long int
@@ -241,6 +252,7 @@
 #define __UINT_FAST16_MAX__ 18446744073709551615UL
 #define __FLT_MIN_10_EXP__ (-37)
 #define __GCC_ATOMIC_SHORT_LOCK_FREE 2
+#define __SSE3__ 1
 #define __UINT_FAST8_TYPE__ unsigned char
 #define _GNU_SOURCE 1
 #define __ATOMIC_ACQ_REL 4

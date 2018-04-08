@@ -14,7 +14,7 @@ CC            = gcc
 CXX           = /usr/bin/g++
 DEFINES       = -DQT_QML_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-CXXFLAGS      = -pipe -std=c++11 -fPIC -Wall -Wextra -pedantic -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -std=c++11 -fPIC -Wall -Wextra -pedantic -mfma -mavx2 -m64 -mf16c -O3 -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 INCPATH       = -I. -Iinclude -I../Common -I../Common/glm -I/opt/Qt5.9.0/5.9/gcc_64/include -I/opt/Qt5.9.0/5.9/gcc_64/include/QtGui -I/opt/Qt5.9.0/5.9/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I/opt/Qt5.9.0/5.9/gcc_64/mkspecs/linux-g++
 QMAKE         = /opt/Qt5.9.0/5.9/gcc_64/bin/qmake
 DEL_FILE      = rm -f
@@ -691,7 +691,7 @@ compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
 moc_predefs.h: /opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/data/dummy.cpp
-	/usr/bin/g++ -pipe -std=c++11 -fPIC -Wall -Wextra -pedantic -g -Wall -W -dM -E -o moc_predefs.h /opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/data/dummy.cpp
+	/usr/bin/g++ -pipe -std=c++11 -fPIC -Wall -Wextra -pedantic -mfma -mavx2 -m64 -mf16c -O3 -g -Wall -W -dM -E -o moc_predefs.h /opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/data/dummy.cpp
 
 compiler_moc_header_make_all:
 compiler_moc_header_clean:

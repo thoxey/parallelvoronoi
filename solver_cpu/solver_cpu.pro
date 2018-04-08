@@ -5,7 +5,7 @@ include(../Common/common.pri)
 TEMPLATE = lib
 
 # Flags for compilation
-QMAKE_CXXFLAGS += -std=c++11 -fPIC -Wall -Wextra -pedantic
+QMAKE_CXXFLAGS += -std=c++11 -fPIC -Wall -Wextra -pedantic -mfma -mavx2 -m64 -mf16c -O3
 
 # Use this directory to store all the intermediate objects
 OBJECTS_DIR = obj

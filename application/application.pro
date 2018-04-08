@@ -47,7 +47,7 @@ OBJECTS_DIR = obj
 MOC_DIR = moc
 UI_DIR = ui
 
-QMAKE_CXXFLAGS += -std=c++11 -Wall -Wextra -pedantic
+QMAKE_CXXFLAGS += -std=c++11 -Wall -Wextra -pedantic -mfma -mavx2 -m64 -mf16c -O3
 
 LIBS += -L$$LIB_INSTALL_DIR -lsolver_cpu -lsolver_gpu
 linux:LIBS += -lGL -lGLU -lGLEW

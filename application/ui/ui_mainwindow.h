@@ -46,6 +46,10 @@ public:
     QVBoxLayout *verticalLayout_2;
     QRadioButton *cpuOpt;
     QRadioButton *gpuOpt;
+    QGroupBox *groupBox_3;
+    QVBoxLayout *verticalLayout_3;
+    QRadioButton *brtOpt;
+    QRadioButton *smrtOpt;
     QSpacerItem *verticalSpacer;
     QPushButton *genButt;
     QLineEdit *imageName;
@@ -113,6 +117,25 @@ public:
 
         verticalLayout->addWidget(groupBox_2);
 
+        groupBox_3 = new QGroupBox(groupBox);
+        groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
+        verticalLayout_3 = new QVBoxLayout(groupBox_3);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        brtOpt = new QRadioButton(groupBox_3);
+        brtOpt->setObjectName(QStringLiteral("brtOpt"));
+        brtOpt->setChecked(true);
+
+        verticalLayout_3->addWidget(brtOpt);
+
+        smrtOpt = new QRadioButton(groupBox_3);
+        smrtOpt->setObjectName(QStringLiteral("smrtOpt"));
+        smrtOpt->setCheckable(false);
+
+        verticalLayout_3->addWidget(smrtOpt);
+
+
+        verticalLayout->addWidget(groupBox_3);
+
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout->addItem(verticalSpacer);
@@ -151,9 +174,12 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Voronoi Generator", Q_NULLPTR));
         groupBox->setTitle(QApplication::translate("MainWindow", "Options", Q_NULLPTR));
         cellCountLabel->setText(QApplication::translate("MainWindow", "Cell Count", Q_NULLPTR));
-        groupBox_2->setTitle(QApplication::translate("MainWindow", "Solver", Q_NULLPTR));
-        cpuOpt->setText(QApplication::translate("MainWindow", "CPU Solver", Q_NULLPTR));
-        gpuOpt->setText(QApplication::translate("MainWindow", "GPU Solver", Q_NULLPTR));
+        groupBox_2->setTitle(QApplication::translate("MainWindow", "CPU/GPU", Q_NULLPTR));
+        cpuOpt->setText(QApplication::translate("MainWindow", "CPU", Q_NULLPTR));
+        gpuOpt->setText(QApplication::translate("MainWindow", "GPU", Q_NULLPTR));
+        groupBox_3->setTitle(QApplication::translate("MainWindow", "Brute/Smart", Q_NULLPTR));
+        brtOpt->setText(QApplication::translate("MainWindow", "Brute", Q_NULLPTR));
+        smrtOpt->setText(QApplication::translate("MainWindow", "Smart", Q_NULLPTR));
         genButt->setText(QApplication::translate("MainWindow", "Generate", Q_NULLPTR));
         imageName->setText(QApplication::translate("MainWindow", "imageName", Q_NULLPTR));
         exportButt->setText(QApplication::translate("MainWindow", "Export Image", Q_NULLPTR));

@@ -14,4 +14,6 @@
 //Will put kernels here
 __global__ void k_hello();
 
-__global__ void k_seedVoronoiDiagram(float *test, uint _cellCount/*uint _xMax, uint _yMax, float *_cellPosX, float *_cellPosY, uint *_r, uint *_g, uint *_b*/);
+__device__ uint d_distSquared(uint _p1x, uint _p1y, uint _p2x, uint _p2y);
+
+__global__ void g_calculateVoronoiDiagram(uint _cellCount, uint _w, uint _h, uint *_positions, uint* _colours, uint *_pixelVals);

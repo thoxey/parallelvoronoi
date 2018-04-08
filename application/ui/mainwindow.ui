@@ -96,13 +96,13 @@
        <item>
         <widget class="QGroupBox" name="groupBox_2">
          <property name="title">
-          <string>Solver</string>
+          <string>CPU/GPU</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
            <widget class="QRadioButton" name="cpuOpt">
             <property name="text">
-             <string>CPU Solver</string>
+             <string>CPU</string>
             </property>
             <property name="checked">
              <bool>true</bool>
@@ -115,7 +115,36 @@
              <bool>true</bool>
             </property>
             <property name="text">
-             <string>GPU Solver</string>
+             <string>GPU</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>Brute/Smart</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QRadioButton" name="brtOpt">
+            <property name="text">
+             <string>Brute</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="smrtOpt">
+            <property name="text">
+             <string>Smart</string>
+            </property>
+            <property name="checkable">
+             <bool>false</bool>
             </property>
            </widget>
           </item>

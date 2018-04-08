@@ -14,7 +14,7 @@ CC            = gcc
 CXX           = /usr/bin/g++
 DEFINES       = -DQT_QML_DEBUG -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-CXXFLAGS      = -pipe -std=c++11 -Wall -Wextra -pedantic -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -std=c++11 -Wall -Wextra -pedantic -mfma -mavx2 -m64 -mf16c -O3 -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 INCPATH       = -I. -Iinclude -Iui -I../Common -I../Common/glm -I../include -I/opt/Qt5.9.0/5.9/gcc_64/include -I/opt/Qt5.9.0/5.9/gcc_64/include/QtOpenGL -I/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets -I/opt/Qt5.9.0/5.9/gcc_64/include/QtGui -I/opt/Qt5.9.0/5.9/gcc_64/include/QtCore -Imoc -isystem /usr/include/libdrm -Iui -I/opt/Qt5.9.0/5.9/gcc_64/mkspecs/linux-g++
 QMAKE         = /opt/Qt5.9.0/5.9/gcc_64/bin/qmake
 DEL_FILE      = rm -f
@@ -692,7 +692,7 @@ compiler_moc_predefs_make_all: moc/moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc/moc_predefs.h
 moc/moc_predefs.h: /opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/data/dummy.cpp
-	/usr/bin/g++ -pipe -std=c++11 -Wall -Wextra -pedantic -g -std=gnu++11 -Wall -W -dM -E -o moc/moc_predefs.h /opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/data/dummy.cpp
+	/usr/bin/g++ -pipe -std=c++11 -Wall -Wextra -pedantic -mfma -mavx2 -m64 -mf16c -O3 -g -std=gnu++11 -Wall -W -dM -E -o moc/moc_predefs.h /opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/data/dummy.cpp
 
 compiler_moc_header_make_all: moc/moc_MainWindow.cpp moc/moc_GLWindow.cpp
 compiler_moc_header_clean:
@@ -1043,6 +1043,7 @@ moc/moc_MainWindow.cpp: /opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QMainWindow \
 		../Common/glm/gtx/range.hpp \
 		../solver_cpu/include/SerialSolver.h \
 		../solver_gpu/include/CudaSolver.h \
+		../solver_cpu/include/utils.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/QImage \
 		include/MainWindow.h \
 		moc/moc_predefs.h \
@@ -1390,6 +1391,7 @@ moc/moc_GLWindow.cpp: include/Shader.h \
 		../Common/glm/gtx/range.hpp \
 		../solver_cpu/include/SerialSolver.h \
 		../solver_gpu/include/CudaSolver.h \
+		../solver_cpu/include/utils.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/QImage \
 		include/GLWindow.h \
 		moc/moc_predefs.h \
@@ -1769,6 +1771,7 @@ obj/main.o: src/main.cpp /opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QApplication 
 		../Common/glm/gtx/range.hpp \
 		../solver_cpu/include/SerialSolver.h \
 		../solver_gpu/include/CudaSolver.h \
+		../solver_cpu/include/utils.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/QImage
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/main.o src/main.cpp
 
@@ -2119,65 +2122,9 @@ obj/MainWindow.o: src/MainWindow.cpp include/MainWindow.h \
 		../Common/glm/gtx/range.hpp \
 		../solver_cpu/include/SerialSolver.h \
 		../solver_gpu/include/CudaSolver.h \
+		../solver_cpu/include/utils.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/QImage \
-		ui/ui_mainwindow.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtCore/QVariant \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QAction \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qaction.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QApplication \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qapplication.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtCore/qeventloop.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/qguiapplication.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/qinputmethod.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QGridLayout \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qgridlayout.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qlayout.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qlayoutitem.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qboxlayout.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QGroupBox \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qgroupbox.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qframe.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QHeaderView \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/qvalidator.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtCore/qregularexpression.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qslider.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qstyle.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QLabel \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qlabel.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QLineEdit \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qlineedit.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/qtextcursor.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/qtextformat.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/qpen.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/qtextoption.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QMenuBar \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qmenubar.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qmenu.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QPushButton \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qpushbutton.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qabstractbutton.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QRadioButton \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qradiobutton.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QSpacerItem \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QSpinBox \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qspinbox.h \
-		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QVBoxLayout
+		ui/ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/MainWindow.o src/MainWindow.cpp
 
 obj/GLWindow.o: src/GLWindow.cpp include/GLWindow.h \
@@ -2522,6 +2469,7 @@ obj/GLWindow.o: src/GLWindow.cpp include/GLWindow.h \
 		../Common/glm/gtx/range.hpp \
 		../solver_cpu/include/SerialSolver.h \
 		../solver_gpu/include/CudaSolver.h \
+		../solver_cpu/include/utils.h \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtGui/QImage \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/QColorDialog \
 		/opt/Qt5.9.0/5.9/gcc_64/include/QtWidgets/qcolordialog.h \

@@ -27,6 +27,7 @@ GLWindow::GLWindow( QWidget *_parent ) : QOpenGLWidget( _parent )
     for(uint i = 0; i < pixels.size(); i++)
         i = 0;
 
+    m_GPUsolver.printCudaInfo();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -94,7 +95,7 @@ void GLWindow::updateDiagram()
     if(m_usingCPU)
         pixels = m_CPUsolver.makeDiagram(vec2(m_image.width(), m_image.height()), m_cellCount);
     else
-        m_GPUsolver.makeDiagram(uvec2(m_image.width(), m_image.height()), m_cellCount);
+        pixels = m_GPUsolver.makeDiagram(m_image.width(), m_image.height(), m_cellCount);
 }
 
 void GLWindow::mouseClick(QMouseEvent * _event)

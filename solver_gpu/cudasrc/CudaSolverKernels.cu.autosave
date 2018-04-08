@@ -33,10 +33,6 @@ __global__ void g_calculateVoronoiDiagram(uint _cellCount, uint _w, uint _h, uin
 {
     uint idx = blockIdx.x * blockDim.x + threadIdx.x;
 
-//    uint pixelCount = sizeof(_pixelVals)/sizeof(uint);
-
-//    printf("Thread: %03d > %03d | %03d \n", threadIdx.x, _positions[idx], _positions[idx+_cellCount]);
-
     uint dist = INT32_MAX;
     uint colIDX = -1;
 

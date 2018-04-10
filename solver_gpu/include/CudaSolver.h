@@ -23,7 +23,14 @@ public:
     /// @param uint _h : The height of the image in pixels
     /// @param uint _cellCount : The amount of cells in the diagram
     //----------------------------------------------------------------------------------------------------------------------
-    std::vector<vec3> makeDiagram(uint _w, uint _h, uint _cellCount);
+    std::vector<vec3> makeDiagram_brute(uint _w, uint _h, uint _cellCount);
+    //----------------------------------------------------------------------------------------------------------------------
+    /// @brief Calculates a voronoi diagram on the GPU
+    /// @param uint _w : The width of the image in pixels
+    /// @param uint _h : The height of the image in pixels
+    /// @param uint _cellCount : The amount of cells in the diagram
+    //----------------------------------------------------------------------------------------------------------------------
+    std::vector<vec3> makeDiagram_NN(uint _w, uint _h, uint _cellCount);
     //----------------------------------------------------------------------------------------------------------------------
     /// @brief Displays info about the CUDA runtime and the installed device
     //----------------------------------------------------------------------------------------------------------------------

@@ -25,8 +25,7 @@ HEADERS += include/CudaSolver.h \
 
 ## CUDA_SOURCES - the source (generally .cu) files for nvcc. No spaces in path names
 CUDA_SOURCES += cudasrc/CudaSolver.cu \
-                cudasrc/CudaSolverKernels.cu \
-                cudasrc/cudarand.cu
+                cudasrc/CudaSolverKernels.cu
 
 
 # Link with the following libraries

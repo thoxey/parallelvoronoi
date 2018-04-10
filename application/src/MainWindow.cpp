@@ -19,6 +19,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect( m_ui->cellCountSB,SIGNAL(valueChanged( int )), m_gl, SLOT(setCellCount(int)));
 
     connect(m_ui->cpuOpt,SIGNAL(toggled(bool)), m_gl, SLOT(setUsingCPU(bool)));
+
+    connect(m_ui->brtOpt,SIGNAL(toggled(bool)), m_gl, SLOT(setBrute(bool)));
+
+    connect(m_ui->optOneK,SIGNAL(toggled(bool)), m_gl, SLOT(setImageSize(bool)));
 }
 
 MainWindow::~MainWindow()

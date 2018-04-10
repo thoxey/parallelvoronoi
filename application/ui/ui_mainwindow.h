@@ -42,6 +42,10 @@ public:
     QVBoxLayout *verticalLayout;
     QLabel *cellCountLabel;
     QSpinBox *cellCountSB;
+    QGroupBox *groupBox_4;
+    QVBoxLayout *verticalLayout_4;
+    QRadioButton *optOneK;
+    QRadioButton *optTwoK;
     QGroupBox *groupBox_2;
     QVBoxLayout *verticalLayout_2;
     QRadioButton *cpuOpt;
@@ -60,7 +64,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(800, 600);
+        MainWindow->resize(825, 635);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         s_mainWindowGridLayout = new QGridLayout(centralwidget);
@@ -98,6 +102,24 @@ public:
 
         verticalLayout->addWidget(cellCountSB);
 
+        groupBox_4 = new QGroupBox(groupBox);
+        groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
+        verticalLayout_4 = new QVBoxLayout(groupBox_4);
+        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
+        optOneK = new QRadioButton(groupBox_4);
+        optOneK->setObjectName(QStringLiteral("optOneK"));
+        optOneK->setChecked(true);
+
+        verticalLayout_4->addWidget(optOneK);
+
+        optTwoK = new QRadioButton(groupBox_4);
+        optTwoK->setObjectName(QStringLiteral("optTwoK"));
+
+        verticalLayout_4->addWidget(optTwoK);
+
+
+        verticalLayout->addWidget(groupBox_4);
+
         groupBox_2 = new QGroupBox(groupBox);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         verticalLayout_2 = new QVBoxLayout(groupBox_2);
@@ -129,7 +151,7 @@ public:
 
         smrtOpt = new QRadioButton(groupBox_3);
         smrtOpt->setObjectName(QStringLiteral("smrtOpt"));
-        smrtOpt->setCheckable(false);
+        smrtOpt->setCheckable(true);
 
         verticalLayout_3->addWidget(smrtOpt);
 
@@ -161,7 +183,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 26));
+        menubar->setGeometry(QRect(0, 0, 825, 26));
         MainWindow->setMenuBar(menubar);
 
         retranslateUi(MainWindow);
@@ -174,6 +196,9 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Voronoi Generator", Q_NULLPTR));
         groupBox->setTitle(QApplication::translate("MainWindow", "Options", Q_NULLPTR));
         cellCountLabel->setText(QApplication::translate("MainWindow", "Cell Count", Q_NULLPTR));
+        groupBox_4->setTitle(QApplication::translate("MainWindow", "Image Size", Q_NULLPTR));
+        optOneK->setText(QApplication::translate("MainWindow", "1024x1024", Q_NULLPTR));
+        optTwoK->setText(QApplication::translate("MainWindow", "2048x2048", Q_NULLPTR));
         groupBox_2->setTitle(QApplication::translate("MainWindow", "CPU/GPU", Q_NULLPTR));
         cpuOpt->setText(QApplication::translate("MainWindow", "CPU", Q_NULLPTR));
         gpuOpt->setText(QApplication::translate("MainWindow", "GPU", Q_NULLPTR));

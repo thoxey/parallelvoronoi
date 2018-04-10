@@ -54,10 +54,8 @@ OBJECTS_DIR   = obj/
 SOURCES       =  
 OBJECTS       = cudaobj/CudaSolver.o \
 		cudaobj/CudaSolverKernels.o \
-		cudaobj/cudarand.o \
 		obj/cuda_link.o
 DIST          = cudasrc/CudaSolverKernels.cu \
-		cudasrc/cudarand.cu \
 		/opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.9.0/5.9/gcc_64/mkspecs/common/unix.conf \
 		/opt/Qt5.9.0/5.9/gcc_64/mkspecs/common/linux.conf \
@@ -239,8 +237,7 @@ DIST          = cudasrc/CudaSolverKernels.cu \
 		/opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/yacc.prf \
 		/opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/lex.prf \
 		solver_gpu.pro include/CudaSolver.h \
-		include/CudaSolver.cuh \
-		include/cudarand.cuh 
+		include/CudaSolver.cuh 
 QMAKE_TARGET  = solver_gpu
 DESTDIR       = ../lib/
 TARGET        = libsolver_gpu.so.1.0.0
@@ -659,10 +656,10 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents cudasrc/CudaSolver.cu cudasrc/CudaSolverKernels.cu cudasrc/cudarand.cu $(DISTDIR)/
-	$(COPY_FILE) --parents cudaobj/CudaSolver.o cudaobj/CudaSolverKernels.o cudaobj/cudarand.o $(DISTDIR)/
+	$(COPY_FILE) --parents cudasrc/CudaSolver.cu cudasrc/CudaSolverKernels.cu $(DISTDIR)/
+	$(COPY_FILE) --parents cudaobj/CudaSolver.o cudaobj/CudaSolverKernels.o $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt5.9.0/5.9/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents include/CudaSolver.h include/CudaSolver.cuh include/cudarand.cuh $(DISTDIR)/
+	$(COPY_FILE) --parents include/CudaSolver.h include/CudaSolver.cuh $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -689,7 +686,7 @@ check: first
 
 benchmark: first
 
-compiler_cuda_make_all: cudaobj/CudaSolver.o cudaobj/CudaSolverKernels.o cudaobj/cudarand.o
+compiler_cuda_make_all: cudaobj/CudaSolver.o cudaobj/CudaSolverKernels.o
 compiler_cuda_clean:
 	-$(DEL_FILE) cudaobj/*.o
 cudaobj/CudaSolver.o: cudasrc/CudaSolver.cu
@@ -698,16 +695,12 @@ cudaobj/CudaSolver.o: cudasrc/CudaSolver.cu
 cudaobj/CudaSolverKernels.o: cudasrc/CudaSolverKernels.cu
 	${CUDA_PATH}/bin/nvcc -ccbin /usr/bin/g++ -m64 -g -G -arch=sm_30 -gencode=arch=compute_52,code=sm_52 -gencode arch=compute_${CUDA_ARCH},code=sm_${CUDA_ARCH} --compiler-options -fno-strict-aliasing --compiler-options -fPIC -use_fast_math --std=c++11 -dc -Iinclude -I${CUDA_PATH}/include -I${CUDA_PATH}/include/cuda -I${CUDA_PATH}/samples/common/inc -I/home/i7469704/parallelvoronoi/solver_gpu/../Common  -L${CUDA_PATH}/lib64 -L${CUDA_PATH}/lib64/nvidia -lcudadevrt -lcuda -lcudart -lcurand -licudata -lcudart_static cudasrc/CudaSolverKernels.cu -o cudaobj/CudaSolverKernels.o
 
-cudaobj/cudarand.o: cudasrc/cudarand.cu
-	${CUDA_PATH}/bin/nvcc -ccbin /usr/bin/g++ -m64 -g -G -arch=sm_30 -gencode=arch=compute_52,code=sm_52 -gencode arch=compute_${CUDA_ARCH},code=sm_${CUDA_ARCH} --compiler-options -fno-strict-aliasing --compiler-options -fPIC -use_fast_math --std=c++11 -dc -Iinclude -I${CUDA_PATH}/include -I${CUDA_PATH}/include/cuda -I${CUDA_PATH}/samples/common/inc -I/home/i7469704/parallelvoronoi/solver_gpu/../Common  -L${CUDA_PATH}/lib64 -L${CUDA_PATH}/lib64/nvidia -lcudadevrt -lcuda -lcudart -lcurand -licudata -lcudart_static cudasrc/cudarand.cu -o cudaobj/cudarand.o
-
 compiler_cudalink_make_all: obj/cuda_link.o
 compiler_cudalink_clean:
 	-$(DEL_FILE) obj/cuda_link.o
 obj/cuda_link.o: cudaobj/CudaSolver.o \
-		cudaobj/CudaSolverKernels.o \
-		cudaobj/cudarand.o 
-	${CUDA_PATH}/bin/nvcc -ccbin /usr/bin/g++ -m64 -g -G -arch=sm_30 -gencode=arch=compute_52,code=sm_52 -gencode arch=compute_${CUDA_ARCH},code=sm_${CUDA_ARCH} --compiler-options -fno-strict-aliasing --compiler-options -fPIC -use_fast_math --std=c++11 -Iinclude -I${CUDA_PATH}/include -I${CUDA_PATH}/include/cuda -I${CUDA_PATH}/samples/common/inc -I/home/i7469704/parallelvoronoi/solver_gpu/../Common  -dlink cudaobj/CudaSolver.o cudaobj/CudaSolverKernels.o cudaobj/cudarand.o -o obj/cuda_link.o -L${CUDA_PATH}/lib64 -L${CUDA_PATH}/lib64/nvidia -lcuda -lcudart -lcudadevrt -lcurand
+		cudaobj/CudaSolverKernels.o 
+	${CUDA_PATH}/bin/nvcc -ccbin /usr/bin/g++ -m64 -g -G -arch=sm_30 -gencode=arch=compute_52,code=sm_52 -gencode arch=compute_${CUDA_ARCH},code=sm_${CUDA_ARCH} --compiler-options -fno-strict-aliasing --compiler-options -fPIC -use_fast_math --std=c++11 -Iinclude -I${CUDA_PATH}/include -I${CUDA_PATH}/include/cuda -I${CUDA_PATH}/samples/common/inc -I/home/i7469704/parallelvoronoi/solver_gpu/../Common  -dlink cudaobj/CudaSolver.o cudaobj/CudaSolverKernels.o -o obj/cuda_link.o -L${CUDA_PATH}/lib64 -L${CUDA_PATH}/lib64/nvidia -lcuda -lcudart -lcudadevrt -lcurand
 
 compiler_rcc_make_all:
 compiler_rcc_clean:

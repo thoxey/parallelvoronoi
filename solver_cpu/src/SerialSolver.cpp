@@ -33,6 +33,11 @@ SerialSolver::~SerialSolver()
 }
 std::vector<vec3> SerialSolver::makeDiagram(vec2 _imageDims, uint _numCells)
 {
+    struct timeval tim;
+    double t1, t2;
+    gettimeofday(&tim, NULL);
+    t1=tim.tv_sec+(tim.tv_usec * 0.0000001);
+
     std::vector<vec3> ret;
     uint pixCount = _imageDims.x * _imageDims.y;
     ret.reserve(pixCount);
@@ -47,11 +52,6 @@ std::vector<vec3> SerialSolver::makeDiagram(vec2 _imageDims, uint _numCells)
         cellPos[i] = vec2(utils::randRange(_imageDims.x), utils::randRange(_imageDims.y));
         cellColour[i] = vec3(utils::randRange(255), utils::randRange(255), utils::randRange(255));
     }
-
-    struct timeval tim;
-    double t1, t2;
-    gettimeofday(&tim, NULL);
-    t1=tim.tv_sec+(tim.tv_usec * 0.0000001);
 
     uint w = _imageDims.x;
     uint h = _imageDims.y;
@@ -81,7 +81,7 @@ std::vector<vec3> SerialSolver::makeDiagram(vec2 _imageDims, uint _numCells)
 
     gettimeofday(&tim, NULL);
     t2=tim.tv_sec+(tim.tv_usec * 0.0000001);
-    std::cout << "CPU Algorithm took: " << t2-t1 << "s for "<<_numCells<<" cells\n";
+    std::cout << "CPU Algorithm took: " << t2-t1 << "s for "<<_numCells<<" cells on a "<<_imageDims.x<<"x"<<_imageDims.y<<" image\n";
 
     return ret;
 }

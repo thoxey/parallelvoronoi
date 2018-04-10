@@ -8,6 +8,7 @@
 #include <cuda/thrust/host_vector.h>
 #include <cuda/thrust/device_vector.h>
 #include <cuda/thrust/sort.h>
+#include <cuda/thrust/tuple.h>
 #include <cuda/thrust/execution_policy.h>
 
 #include "CudaSolver.h"
@@ -35,4 +36,20 @@ __device__ uint d_distSquared(uint _p1x, uint _p1y, uint _p2x, uint _p2y);
 /// @param uint* _positions : The positions of the cell centres, in the format 0 = x1... cellcount = xn, cellcount+1 = y1 etc...
 /// @param uint* _pixelVals : The index of the cell that each pixel belongs to
 //----------------------------------------------------------------------------------------------------------------------
-__global__ void g_calculateVoronoiDiagram(uint _cellCount, uint _w, uint *_positions, uint *_pixelVals);
+__global__ void g_calculateVoronoiDiagram_brute(uint _cellCount, uint _w, uint *_positions, uint *_pixelVals);
+//----------------------------------------------------------------------------------------------------------------------
+/// @brief calculaets a voronoi diagram using a point hash to reduce compute time
+/// @param uint _cellCount : The amount of cells in the diagram
+/// @param uint _w : The width of the image in pixels
+/// @param uint* _positions : The positions of the cell centres, in the format 0 = x1... cellcount = xn, cellcount+1 = y1 etc...
+/// @param uint* _pixelVals : The index of the cell that each pixel belongs to
+//----------------------------------------------------------------------------------------------------------------------
+__global__ void g_calculateVoronoiDiagram_NN(uint _cellCount, uint _w, uint _res, uint *_hash, uint *_cellOcc, uint *_Xpositions, uint *_Ypositions, uint *_pixelVals);
+//----------------------------------------------------------------------------------------------------------------------
+/// @brief
+/// @param uint* _hash :
+/// @param uint* _Xpositions :
+/// @param uint* _Ypositions :
+/// @param uint _res :
+//----------------------------------------------------------------------------------------------------------------------
+__global__ void g_pointHash(uint *_hash, uint *_cellOcc, const uint *_Xpositions, const uint *_Ypositions, const uint _res);

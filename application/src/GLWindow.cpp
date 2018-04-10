@@ -20,7 +20,7 @@ GLWindow::GLWindow( QWidget *_parent ) : QOpenGLWidget( _parent )
     m_camera.setTarget(0.0f, 0.0f, -2.0f);
     m_camera.setEye(0.0f, 0.0f, 0.0f);
 
-    m_image = QPixmap( 1024 , 1024 ).toImage();
+    m_image = QPixmap( m_imageSize , m_imageSize ).toImage();
     m_image.fill(Qt::white);
 
     pixels.reserve(m_image.width()*m_image.height());
@@ -92,10 +92,21 @@ void GLWindow::mouseDoubleClickEvent(QMouseEvent *event)
 }
 void GLWindow::updateDiagram()
 {
-    if(m_usingCPU)
-        pixels = m_CPUsolver.makeDiagram(vec2(m_image.width(), m_image.height()), m_cellCount);
+    if(m_brute)
+    {
+        if(m_usingCPU)
+            pixels = m_CPUsolver.makeDiagram(vec2(m_image.width(), m_image.height()), m_cellCount);
+        else
+            pixels = m_GPUsolver.makeDiagram_brute(m_image.width(), m_image.height(), m_cellCount);
+    }
     else
-        pixels = m_GPUsolver.makeDiagram(m_image.width(), m_image.height(), m_cellCount);
+    {
+        if(m_usingCPU)
+            pixels = m_CPUsolver.makeDiagram(vec2(m_image.width(), m_image.height()), m_cellCount);
+        else
+            pixels = m_GPUsolver.makeDiagram_NN(m_image.width(), m_image.height(), m_cellCount);
+    }
+    m_updatedDiagram = true;
 }
 
 void GLWindow::mouseClick(QMouseEvent * _event)
@@ -182,8 +193,7 @@ void GLWindow::paintGL()
     glClearColor( 1, 1, 1, 1.0f );
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-
-    if(pixels.size() > 0)
+    if(pixels.size() > 0 && m_updatedDiagram)
     {
         for ( int i = 0; i < m_image.height(); ++i )
         {
@@ -199,6 +209,7 @@ void GLWindow::paintGL()
                 m_image.setPixel(i,j,qRgb(r,g,b) );
             }
         }
+        m_updatedDiagram = false;
     }
     auto m_glImage = QGLWidget::convertToGLFormat( m_image );
     if(m_glImage.isNull())
@@ -297,6 +308,20 @@ void GLWindow::addTexture()
         qWarning("IMAGE IS NULL");
     glBindTexture( GL_TEXTURE_2D, m_textures[m_textures.size()-1] );
     glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, m_glImage.width(), m_glImage.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_glImage.bits() );
+}
+
+void GLWindow::setBrute(bool brute)
+{
+    m_brute = brute;
+}
+
+void GLWindow::setImageSize(bool _1k)
+{
+    m_imageSize = 2048 - (1024*_1k);
+        m_image = QPixmap( m_imageSize , m_imageSize ).toImage();
+        m_image.fill(Qt::white);
+        pixels.resize(m_imageSize*m_imageSize);
+        std::cout<<m_imageSize<<"\n";
 }
 
 bool GLWindow::getUsingCPU() const

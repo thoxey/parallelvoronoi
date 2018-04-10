@@ -49,6 +49,8 @@ public :
     bool getUsingCPU() const;
 
 
+
+
 public slots:
 
     void init();
@@ -57,6 +59,8 @@ public slots:
     void updateDiagram();
     void exportImage();
     void setUsingCPU(bool _usingCPU);
+    void setBrute(bool brute);
+    void setImageSize(bool _1k);
 
 protected:
     /// @brief  The following methods must be implimented in the sub class
@@ -125,6 +129,12 @@ private :
     uint m_cellCount = 20;
 
     bool m_usingCPU = true;
+
+    bool m_brute = true;
+
+    uint m_imageSize = 1024;
+
+    bool m_updatedDiagram = false;
 };
 
 #endif

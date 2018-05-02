@@ -14,6 +14,11 @@ __device__ uint d_distSquared(uint _p1x, uint _p1y, uint _p2x, uint _p2y)
     return (xd * xd) + (yd * yd);
 }
 //----------------------------------------------------------------------------------------------------------------------
+__device__ float map(float _value, float _low1, float _high1, float _low2, float _high2)
+{
+    return _low2 + (_value - _low1) * (_high2 - _low2) / (_high1 - _low1);
+}
+//----------------------------------------------------------------------------------------------------------------------
 __global__ void g_calculateVoronoiDiagram_brute(uint _cellCount, uint _w, uint *_positions, uint* _pixelVals)
 {
     //---------------------------------------------
@@ -47,13 +52,11 @@ __global__ void g_calculateVoronoiDiagram_brute(uint _cellCount, uint _w, uint *
     _pixelVals[idx] = colIDX;
 }
 //----------------------------------------------------------------------------------------------------------------------
-__global__ void g_calculateVoronoiDiagram_NN(uint _cellCount, uint _w, uint _res,
-                                             uint * _hash, uint *_cellOcc,
+__global__ void g_calculateVoronoiDiagram_NN(uint _cellCount, uint _w, 
                                              uint *_Xpositions, uint *_Ypositions,
                                              uint* _pixelVals)
 {
     uint idx = blockIdx.x * blockDim.x + threadIdx.x;
-
     uint dist = INT32_MAX;
     uint colIDX = -1;
 
@@ -75,17 +78,28 @@ __global__ void g_calculateVoronoiDiagram_NN(uint _cellCount, uint _w, uint _res
     _pixelVals[idx] = colIDX;
 }
 //----------------------------------------------------------------------------------------------------------------------
-__global__ void g_pointHash(uint *_hash, uint *_cellOcc,  const uint *_Xpositions, const uint *_Ypositions, const uint _res)
+__global__ void g_pointHash(uint *_hash,  const uint *_Xpositions, const uint *_Ypositions, const uint _res, uint _w, uint _h)
 {
     uint idx = blockIdx.x * blockDim.x + threadIdx.x;
 
-    float xfrac = floor((1.0f/_Xpositions[idx]) * _res);
-    float yfrac = floor((1.0f/_Ypositions[idx]) * _res);
+    if(idx > _w*_h)
+        return;
+
+    //Need to map the _Xposes from 0-1 first
+    uint xfrac = floor(map(_Xpositions[idx], 0, _w, 0, 1) * _res);
+    uint yfrac = floor(map(_Ypositions[idx], 0, _h, 0, 1) * _res);
 
     uint gridPos[2] = {xfrac, yfrac};
 
-    _hash[idx] = gridPos[0] * _res + gridPos[1];
-    atomicAdd(&(_cellOcc[_hash[idx]]), 1);
-    printf("Contents of hash %d: %d\n",idx,_hash[idx]);
+    _hash[idx] = gridPos[1] * _res + gridPos[1];
 }
 //----------------------------------------------------------------------------------------------------------------------
+__global__ void g_countCellOcc(uint *_hash, uint *_cellOcc, uint _pixCount)
+{
+    uint idx = blockIdx.x * blockDim.x + threadIdx.x;
+
+    if(idx > _pixCount)
+        return;
+
+   atomicAdd(&(_cellOcc[_hash[idx]]), 1);
+}

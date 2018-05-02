@@ -93,28 +93,31 @@ std::vector<vec3> CUDASolver::makeDiagram_NN(uint _w, uint _h, uint _cellCount)
     //Launch kernels
     //---------------------------------------------
     uint blockCount = std::ceil(_w*_h)/1024;
-    uint threadCount = (_w*_h)/blockCount;
+    uint threadCount = (_w*_h)/blockCount + 1;
 
     printf("Cell count = %d; Hash Size = %d; xPosCount = %d; yPosCount = %d\n",_cellCount, d_hash.size(), d_cellXPositions.size(), d_cellYPositions.size());
 
     std::cout << "Starting kernels \n";
 
-    g_pointHash<<<blockCount, threadCount>>>(d_hash_ptr, d_cellOcc_ptr, d_cellXPositions_ptr, d_cellYPositions_ptr, GRID_RES);
+    g_pointHash<<<blockCount, threadCount>>>(d_hash_ptr, d_cellXPositions_ptr, d_cellYPositions_ptr, GRID_RES, _w, _h);
     checkCUDAErr();
     cudaThreadSynchronize();
 
-    std::cout << "Finished Point Hash \n"<<std::endl;
-    thrust::copy(d_hash.begin(), d_hash.end(), std::ostream_iterator<unsigned int>(std::cout, " "));
-    std::cout << "~ \n";
+    g_countCellOcc<<<blockCount, threadCount>>>(d_hash_ptr, d_cellOcc_ptr, _w*_h);
+//    std::cout << "Finished Point Hash \n"<<std::endl;
+//    thrust::copy(d_hash.begin(), d_hash.end(), std::ostream_iterator<uint>(std::cout, " "));
+//    std::cout << "~ \n";
 
-    thrust::sort_by_key(d_hash.begin(), d_hash.end(), thrust::make_zip_iterator(thrust::make_tuple( d_cellXPositions.begin(), d_cellYPositions.begin())));
-    checkCUDAErr();
+    //Exclusive scan the cell occ to get the starting indicies
+
+    auto tuple = thrust::make_tuple(d_cellXPositions.begin(), d_cellYPositions.begin());
+    auto zipit = thrust::make_zip_iterator(tuple);
+    thrust::sort_by_key(d_hash.begin(), d_hash.end(), zipit);
     cudaThreadSynchronize();
 
     std::cout << "Finished Sort \n";
 
-    g_calculateVoronoiDiagram_NN<<<blockCount, threadCount>>>(_cellCount, _w, GRID_RES,
-                                                              d_hash_ptr, d_cellOcc_ptr,
+    g_calculateVoronoiDiagram_NN<<<blockCount, threadCount>>>(_cellCount, _w,
                                                               d_cellXPositions_ptr, d_cellYPositions_ptr,
                                                               d_results_ptr);
 

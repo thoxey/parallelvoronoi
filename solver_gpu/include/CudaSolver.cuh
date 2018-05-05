@@ -45,7 +45,7 @@ __global__ void g_calculateVoronoiDiagram_brute(uint _cellCount, uint _w, uint *
 /// @param uint* _positions : The positions of the cell centres, in the format 0 = x1... cellcount = xn, cellcount+1 = y1 etc...
 /// @param uint* _pixelVals : The index of the cell that each pixel belongs to
 //----------------------------------------------------------------------------------------------------------------------
-__global__ void g_calculateVoronoiDiagram_NN(uint _cellCount, uint _w, uint *_Xpositions, uint *_Ypositions, uint *_pixelVals);
+__global__ void g_calculateVoronoiDiagram_NN(uint _cellCount, uint _w, real *_Xpositions, real *_Ypositions, uint *_hash, uint *_excScan, uint *_cellOcc, uint *_pixelVals);
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief
 /// @param uint* _hash :
@@ -53,10 +53,10 @@ __global__ void g_calculateVoronoiDiagram_NN(uint _cellCount, uint _w, uint *_Xp
 /// @param uint* _Ypositions :
 /// @param uint _res :
 //----------------------------------------------------------------------------------------------------------------------
-__global__ void g_pointHash(uint *_hash, const uint *_Xpositions, const uint *_Ypositions, const uint _res, uint _w, uint _h);
+__global__ void g_pointHash(uint *_hash, const real *_Xpositions, const real *_Ypositions, const uint _res, uint _w, uint _h);
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief
 /// @param uint* _hash :
 /// @param uint* _cellOcc
 //----------------------------------------------------------------------------------------------------------------------
-__global__ void g_countCellOcc(uint *_hash, uint *_cellOcc, uint _pixCount);
+__global__ void g_countCellOcc(uint *_hash, uint *_cellOcc, uint _pixCount, uint _hashCellCount);

@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <iostream>
 #include <cmath>
-#include<sys/time.h>
+#include <sys/time.h>
+#include <tuple>
 #include "utils.h"
 
 class SerialSolver
@@ -23,7 +24,16 @@ public:
     /// @param vec2 _imageDims : The width and height of the image in pixels
     /// @param uint _numCells : The number of cells in the diagram
     //----------------------------------------------------------------------------------------------------------------------
-    std::vector<vec3> makeDiagram(vec2 _imageDims, uint _numCells);
+    std::vector<vec3> makeDiagram_brute(vec2 _imageDims, uint _numCells);
+    //----------------------------------------------------------------------------------------------------------------------
+    /// @brief Creates a voronoi diagram via brute force on the CPU
+    /// @param vec2 _imageDims : The width and height of the image in pixels
+    /// @param uint _numCells : The number of cells in the diagram
+    //----------------------------------------------------------------------------------------------------------------------
+    std::vector<vec3> makeDiagram_NN(vec2 _imageDims, uint _numCells);
+
+    bool comparator(const std::pair<int,int> &A,const std::pair<int,int> &B);
+
 };
 
 

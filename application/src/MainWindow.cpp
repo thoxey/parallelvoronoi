@@ -39,7 +39,7 @@ void MainWindow::keyPressEvent(QKeyEvent *_event)
   switch ( _event->key() )
   {
     case Qt::Key_Escape : QApplication::exit(EXIT_SUCCESS); break;
-    case Qt::Key_Space : m_gl->m_CPUsolver.makeDiagram(m_gl->getDimensions(), m_gl->getCellCount());
+    case Qt::Key_Space : m_gl->m_CPUsolver.makeDiagram_brute(m_gl->getDimensions(), m_gl->getCellCount());
     default : break;
   }
 }

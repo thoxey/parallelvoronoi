@@ -97,12 +97,12 @@ void GLWindow::updateDiagram()
         if(m_usingCPU)
             pixels = m_CPUsolver.makeDiagram_brute(vec2(m_image.width(), m_image.height()), m_cellCount);
         else
-            pixels = m_CPUsolver.makeDiagram_NN(vec2(m_image.width(), m_image.height()), m_cellCount);
+            pixels = m_GPUsolver.makeDiagram_brute(m_image.width(), m_image.height(), m_cellCount);
     }
     else
     {
         if(m_usingCPU)
-            pixels = m_CPUsolver.makeDiagram_brute(vec2(m_image.width(), m_image.height()), m_cellCount);
+            pixels = m_CPUsolver.makeDiagram_NN(vec2(m_image.width(), m_image.height()), m_cellCount);
         else
             pixels = m_GPUsolver.makeDiagram_NN(m_image.width(), m_image.height(), m_cellCount);
     }

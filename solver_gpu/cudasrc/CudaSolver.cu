@@ -99,7 +99,7 @@ std::vector<vec3> CUDASolver::makeDiagram_NN(uint _w, uint _h, uint _cellCount)
 
     std::cout << "Starting kernels \n";
 
-    g_pointHash<<<blockCount, threadCount>>>(d_hash_ptr, d_cellXPositions_ptr, d_cellYPositions_ptr, GRID_RES, _w, _h);
+    g_pointHash<<<blockCount, threadCount>>>(d_hash_ptr, d_cellXPositions_ptr, d_cellYPositions_ptr, GRID_RES, _cellCount);
     cudaThreadSynchronize();
     checkCUDAErr();
 
@@ -114,10 +114,10 @@ std::vector<vec3> CUDASolver::makeDiagram_NN(uint _w, uint _h, uint _cellCount)
 
     thrust::exclusive_scan(d_cellOcc.begin(),d_cellOcc.end(),d_excScan.begin());
 
-    thrust::copy(d_hash.begin(), d_hash.end(), std::ostream_iterator<uint>(std::cout, " "));
-    std::cout << "~ \n";
+//    thrust::copy(d_hash.begin(), d_hash.end(), std::ostream_iterator<uint>(std::cout, " "));
+//    std::cout << "~ \n";
 
-    g_calculateVoronoiDiagram_NN<<<blockCount, threadCount>>>(_cellCount, _w,
+    g_calculateVoronoiDiagram_NN<<<blockCount, threadCount>>>(_cellCount, _w, _h, GRID_RES,
                                                               d_cellXPositions_ptr, d_cellYPositions_ptr,
                                                               d_hash_ptr, d_excScan_ptr, d_cellOcc_ptr,
                                                               d_results_ptr);

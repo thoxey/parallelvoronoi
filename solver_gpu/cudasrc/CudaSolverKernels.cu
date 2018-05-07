@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sys/time.h>
 #include <time.h>
+#include <math.h>
 
 //----------------------------------------------------------------------------------------------------------------------
 __device__ uint d_distSquared(uint _p1x, uint _p1y, uint _p2x, uint _p2y)
@@ -15,8 +16,8 @@ __device__ uint d_distSquared(uint _p1x, uint _p1y, uint _p2x, uint _p2y)
 }
 //----------------------------------------------------------------------------------------------------------------------
 __device__ uint * d_checkDistance(uint _x, uint _y, uint _w, uint _h, uint _res,
-                                        real *_Xpositions, real *_Ypositions,
-                                        uint *_excScan, uint *_cellOcc)
+                                  real *_Xpositions, real *_Ypositions,
+                                  uint *_excScan, uint *_cellOcc)
 {
     uint dist = INT32_MAX;
     uint colIDX = -1;
@@ -58,58 +59,104 @@ __global__ void g_calculateVoronoiDiagram_NN(uint _cellCount, uint _w, uint _h, 
 {
     uint idx = blockIdx.x * blockDim.x + threadIdx.x;
     uint pixCount = _w*_h;
-    if(idx > pixCount)
-        return;
-
-    uint x = idx%_w;
-    uint y = (idx-x)/_w;
-
-    uint dist = INT32_MAX;
-    uint colIDX = -1;
-
-    for(int i = -1; i<2; i++)
+    if(idx < pixCount)
     {
-        for(int j = -1; j<2; j++)
-        {
-            uint neighborX = x + (i*(_w*_res));
-            uint neighborY = y + (j*(_h*_res));
-            uint * neighborPair = d_checkDistance(neighborX, neighborY,
-                                                  _w, _h, _res,
-                                                  _Xpositions, _Ypositions,
-                                                  _excScan, _cellOcc);
-            if(neighborPair[0] < dist)
+        uint x = idx&_w-1;
+        uint y = (idx-x)/_w;
+
+        uint dist = INT32_MAX;
+        uint colIDX = 0;
+
+        real x021 = x/_w;
+        real y021 = y/_h;
+
+        uint xfrac = floor(x021 * _res);
+        uint yfrac = floor(y021 * _res);
+
+        uint d;
+
+        for(int i = -1; i < 2; i++)
+            for(int j = -1; j < 2; j++)
             {
-                dist = neighborPair[0];
-                colIDX = neighborPair[1];
+                uint gridPos[2] = {xfrac, yfrac};
+
+                uint scanIDX = gridPos[0]+i * _res + gridPos[1]+j;
+
+                if(scanIDX >=0 && scanIDX < _res*_res)
+                {
+
+                    uint startIndex = _excScan[scanIDX];
+                    uint endIndex = startIndex + _cellOcc[scanIDX];
+
+
+                    //Get reduced set of cells
+                    for(uint it = startIndex; it < endIndex; it++)
+                    {
+                        d = d_distSquared(x, y, _Xpositions[it]*_w, _Ypositions[it]*_h);
+
+                        if(d < dist)
+                        {
+                            dist = d;
+                            colIDX = it;
+                        }
+                    }
+                }
             }
-        }
+        /*
+
+        //    //for(int i = -1; i<2; i++)
+        //    {
+        //        //for(int j = -1; j<2; j++)
+        //        {
+        //            uint neighborX = x;// + (i*(_w/_res));
+        //            uint neighborY = y;// + (j*(_h/_res));
+        //            if(neighborX > 0 && neighborX < _w && neighborY > 0 && neighborY < _h)
+        //            {
+        //                uint * neighborPair = d_checkDistance(neighborX, neighborY,
+        //                                                      _w, _h, _res,
+        //                                                      _Xpositions, _Ypositions,
+        //                                                      _excScan, _cellOcc);
+        //                if(neighborPair[0] < dist)
+        //                {
+        //                    dist = neighborPair[0];
+        //                    colIDX = neighborPair[1];
+        //                }
+        //            }
+        //        }
+        //    }
+
+*/
+        _pixelVals[idx] = colIDX;
     }
-
-
-    _pixelVals[idx] = colIDX;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-__global__ void g_pointHash(uint *_hash,  const real *_Xpositions, const real *_Ypositions, const uint _res, uint _cellCount)
+__global__ void g_pointHash(const real *_Xpositions, const real *_Ypositions,
+                            uint *_cellOcc, uint *_hash,
+                            const uint _res, uint _cellCount, uint _pixCount)
 {
     uint idx = blockIdx.x * blockDim.x + threadIdx.x;
 
-    if(idx > _cellCount)
+    if(idx >= _cellCount)
         return;
 
-    //Need to map the _Xposes from 0-1 first
     uint xfrac = floor(_Xpositions[idx] * _res);
     uint yfrac = floor(_Ypositions[idx] * _res);
 
     uint gridPos[2] = {xfrac, yfrac};
 
-    _hash[idx] = gridPos[0] * _res + gridPos[1];
+    uint hashVal = gridPos[0] * _res + gridPos[1];
+
+    _hash[idx] = hashVal;
+
+    __syncthreads();
+    if(idx < _pixCount && _hash[idx] < _res*_res)
+        atomicAdd(&(_cellOcc[hashVal]), 1);
 }
 //----------------------------------------------------------------------------------------------------------------------
 __global__ void g_countCellOcc(uint *_hash, uint *_cellOcc, uint _pixCount, uint _hashCellCount)
 {
     uint idx = blockIdx.x * blockDim.x + threadIdx.x;
-
     if(idx < _pixCount && _hash[idx] < _hashCellCount)
         atomicAdd(&(_cellOcc[_hash[idx]]), 1);
 }
@@ -128,7 +175,7 @@ __global__ void g_calculateVoronoiDiagram_brute(uint _cellCount, uint _w,
     {
         //Determine the position of this pixel and calculate its distance squared from the current cell
         //---------------------------------------------
-        uint x = idx%_w;
+        uint x = idx&_w-1;
         uint y = (idx-x)/_w;
         uint d = d_distSquared(x, y, _positions[i], _positions[i+_cellCount]);
         //---------------------------------------------

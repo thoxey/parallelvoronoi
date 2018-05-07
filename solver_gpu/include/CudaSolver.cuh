@@ -4,6 +4,7 @@
 #include <cuda/cuda_runtime.h>
 #include <cuda/cuda_runtime_api.h>
 #include <cuda/device_functions.h>
+#include <cuda/device_launch_parameters.h>
 
 #include <cuda/thrust/host_vector.h>
 #include <cuda/thrust/device_vector.h>
@@ -13,6 +14,7 @@
 #include <cuda/thrust/execution_policy.h>
 
 #include "CudaSolver.h"
+#include "../../solver_cpu/include/utils.h"
 
 //----------------------------------------------------------------------------------------------------------------------
 /// @file CudaSolver.cuh
@@ -21,6 +23,10 @@
 /// @version 1.0
 /// @date
 //----------------------------------------------------------------------------------------------------------------------
+
+
+
+const uint GRID_RES = 4;
 
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief returns the square of the distance between the points p1 and p2
@@ -53,7 +59,7 @@ __global__ void g_calculateVoronoiDiagram_NN(uint _cellCount, uint _w, uint _h, 
 /// @param uint* _Ypositions :
 /// @param uint _res :
 //----------------------------------------------------------------------------------------------------------------------
-__global__ void g_pointHash(uint *_hash, const real *_Xpositions, const real *_Ypositions, const uint _res, uint _cellCount);
+__global__ void g_pointHash(const real *_Xpositions, const real *_Ypositions, uint *_cellOcc, uint *_hash, const uint _res, uint _cellCount, uint _pixCount);
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief
 /// @param uint* _hash :

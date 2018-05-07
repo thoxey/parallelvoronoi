@@ -47,8 +47,6 @@ std::vector<vec3> CUDASolver::makeDiagram_NN(uint _w, uint _h, uint _cellCount)
     t1=tim.tv_sec+(tim.tv_usec * 0.0000001);
     //---------------------------------------------
 
-    const uint GRID_RES = 4;
-
     //Declare host vectors
     //---------------------------------------------
     thrust::host_vector<real> h_cellXPositions(_cellCount);
@@ -56,12 +54,13 @@ std::vector<vec3> CUDASolver::makeDiagram_NN(uint _w, uint _h, uint _cellCount)
     thrust::host_vector<uint> h_cellColours(_cellCount*3);
     //---------------------------------------------
 
+
     //Generate random positions (Would be better to implement this on the GPU as well)
     //---------------------------------------------
     for(uint i = 0; i < _cellCount; i++)
     {
-        h_cellXPositions[i] = randNum(1.0f);
-        h_cellYPositions[i] = randNum(1.0f);
+        h_cellXPositions[i] = randNum(1.0);
+        h_cellYPositions[i] = randNum(1.0);
     }
     //---------------------------------------------
 
@@ -92,18 +91,18 @@ std::vector<vec3> CUDASolver::makeDiagram_NN(uint _w, uint _h, uint _cellCount)
 
     //Launch kernels
     //---------------------------------------------
-    uint blockCount = (std::ceil(_w*_h)/1024) + 1;
-    uint threadCount = 1024;
 
     printf("Cell count = %d; Hash Size = %d; xPosCount = %d; yPosCount = %d\n",_cellCount, d_hash.size(), d_cellXPositions.size(), d_cellYPositions.size());
 
     std::cout << "Starting kernels \n";
 
-    g_pointHash<<<blockCount, threadCount>>>(d_hash_ptr, d_cellXPositions_ptr, d_cellYPositions_ptr, GRID_RES, _cellCount);
+    g_pointHash<<<1, 1024>>>(d_cellXPositions_ptr, d_cellYPositions_ptr,
+                                             d_cellOcc_ptr, d_hash_ptr,
+                                             GRID_RES, _cellCount, _w*_h);
     cudaThreadSynchronize();
-    checkCUDAErr();
+    //checkCUDAErr();
 
-    g_countCellOcc<<<blockCount, threadCount>>>(d_hash_ptr, d_cellOcc_ptr, _w*_h, GRID_RES*GRID_RES);
+    g_countCellOcc<<<1, 1024>>>(d_hash_ptr, d_cellOcc_ptr, _w*_h, GRID_RES*GRID_RES);
     cudaThreadSynchronize();
 
     auto tuple = thrust::make_tuple(d_cellXPositions.begin(), d_cellYPositions.begin());
@@ -116,6 +115,12 @@ std::vector<vec3> CUDASolver::makeDiagram_NN(uint _w, uint _h, uint _cellCount)
 
 //    thrust::copy(d_hash.begin(), d_hash.end(), std::ostream_iterator<uint>(std::cout, " "));
 //    std::cout << "~ \n";
+    uint blockCount = (std::ceil(_w*_h)/1024) + 1;
+    uint threadCount = 1024;
+    uint bins = blockCount * blockCount * sizeof(real);
+
+    dim3 block(blockCount, blockCount); // block of (X,Y) threads
+    dim3 grid(blockCount, blockCount); // grid 2x2 blocks
 
     g_calculateVoronoiDiagram_NN<<<blockCount, threadCount>>>(_cellCount, _w, _h, GRID_RES,
                                                               d_cellXPositions_ptr, d_cellYPositions_ptr,
@@ -136,7 +141,7 @@ std::vector<vec3> CUDASolver::makeDiagram_NN(uint _w, uint _h, uint _cellCount)
     //---------------------------------------------
     thrust::host_vector<uint> h_results(d_results);
 
-    std::vector<vec3> retVec(_w * _h);
+    std::vector<vec3> retVec(_w * _h, vec3(0,0,0));
 
     for(uint i = 0; i < _w * _h; i++)
     {

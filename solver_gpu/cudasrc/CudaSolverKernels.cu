@@ -58,6 +58,7 @@ __global__ void g_calculateVoronoiDiagram_NN(uint _cellCount, uint _w, uint _h, 
                                              uint* _pixelVals)
 {
     uint idx = blockIdx.x * blockDim.x + threadIdx.x;
+
     uint pixCount = _w*_h;
     if(idx < pixCount)
     {
@@ -84,10 +85,13 @@ __global__ void g_calculateVoronoiDiagram_NN(uint _cellCount, uint _w, uint _h, 
 
                 if(scanIDX >=0 && scanIDX < _res*_res)
                 {
-
+                    //If the cell and it's neighbors are out, look another layer out
+                    if(_cellOcc[scanIDX] == 0)
+                    {
+                        scanIDX = gridPos[0]+(2*i) * _res + gridPos[1]+(2*j);
+                    }
                     uint startIndex = _excScan[scanIDX];
                     uint endIndex = startIndex + _cellOcc[scanIDX];
-
 
                     //Get reduced set of cells
                     for(uint it = startIndex; it < endIndex; it++)
@@ -99,6 +103,7 @@ __global__ void g_calculateVoronoiDiagram_NN(uint _cellCount, uint _w, uint _h, 
                             dist = d;
                             colIDX = it;
                         }
+
                     }
                 }
             }

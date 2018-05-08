@@ -89,7 +89,6 @@ std::vector<vec3> CUDASolver::makeDiagram_NN(uint _w, uint _h, uint _cellCount)
     cudaThreadSynchronize();
 
     g_countCellOcc<<<1, 1024>>>(d_hash_ptr, d_cellOcc_ptr, _w*_h, GRID_RES*GRID_RES);
-    cudaThreadSynchronize();
 
     auto tuple = thrust::make_tuple(d_cellXPositions.begin(), d_cellYPositions.begin());
     auto zipit = thrust::make_zip_iterator(tuple);
@@ -97,9 +96,10 @@ std::vector<vec3> CUDASolver::makeDiagram_NN(uint _w, uint _h, uint _cellCount)
     cudaThreadSynchronize();
 
     thrust::exclusive_scan(d_cellOcc.begin(),d_cellOcc.end(),d_excScan.begin());
+    cudaThreadSynchronize();
 
     uint blockCount = (std::ceil(_w*_h)/1024) + 1;
-    uint threadCount = 1024;
+    dim3 threadCount = 1024;
 
     g_calculateVoronoiDiagram_NN<<<blockCount, threadCount>>>(_cellCount, _w, _h, GRID_RES,
                                                               d_cellXPositions_ptr, d_cellYPositions_ptr,

@@ -26,7 +26,7 @@
 
 
 
-const uint GRID_RES = 4;
+const uint GRID_RES = 8;
 
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief returns the square of the distance between the points p1 and p2

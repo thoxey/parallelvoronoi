@@ -76,11 +76,6 @@ void GLWindow::mouseMove(QMouseEvent * _event)
     if ( x < 1 ) x = 1;
     if ( y < 1 ) y = 1;
 
-    if (_event->buttons() == Qt::RightButton)
-        std::cout<<"Right Button Pressed\n";
-    else if (_event->buttons() == Qt::LeftButton)
-        std::cout<<"Left Button Pressed\n";
-
     update();
 }
 

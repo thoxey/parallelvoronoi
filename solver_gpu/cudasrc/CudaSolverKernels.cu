@@ -102,30 +102,6 @@ __global__ void g_calculateVoronoiDiagram_NN(uint _cellCount, uint _w, uint _h, 
                     }
                 }
             }
-        /*
-
-        //    //for(int i = -1; i<2; i++)
-        //    {
-        //        //for(int j = -1; j<2; j++)
-        //        {
-        //            uint neighborX = x;// + (i*(_w/_res));
-        //            uint neighborY = y;// + (j*(_h/_res));
-        //            if(neighborX > 0 && neighborX < _w && neighborY > 0 && neighborY < _h)
-        //            {
-        //                uint * neighborPair = d_checkDistance(neighborX, neighborY,
-        //                                                      _w, _h, _res,
-        //                                                      _Xpositions, _Ypositions,
-        //                                                      _excScan, _cellOcc);
-        //                if(neighborPair[0] < dist)
-        //                {
-        //                    dist = neighborPair[0];
-        //                    colIDX = neighborPair[1];
-        //                }
-        //            }
-        //        }
-        //    }
-
-*/
         _pixelVals[idx] = colIDX;
     }
 }

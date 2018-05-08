@@ -6,6 +6,11 @@
 #include <cmath>
 #include <sys/time.h>
 #include <tuple>
+#include <map>
+#include <set>
+#include <algorithm>
+#include <functional>
+#include <numeric>
 #include "utils.h"
 
 class SerialSolver
@@ -34,6 +39,7 @@ public:
 
     bool comparator(const std::pair<int,int> &A,const std::pair<int,int> &B);
 
+    uint getHashVal(vec2 _cellPos, const uint _GRID_RES, vec2 _imageDims, vec2 _offset=vec2(0,0));
 };
 
 

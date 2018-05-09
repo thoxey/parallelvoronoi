@@ -113,10 +113,22 @@ This basically sorts the hash values, and performs the same swaps to the corresp
 
 As with all things there is a cost to this, splitting the domain itself into the sub domains requires processing power. We can illustrate this with the same example from before with only 32 cells, each sub grid only has a 50/50 chance to contain a cell, so we need to do ~4 iterations per pixel compared to 32, saving 28 iterations but at the cost of having to fill 3 extra vectors of size 32 and then having to perform operations on them.
 
+## BenchMarks
 
 
+#### Graph of CPU vs. GPU Benchmarks (5 iterations)
+This graph shows that the GPU application is considerably faster as the program scales. The CPU nearest neighbor algorithm is slower in all cases, but this is likely due to the fact that it is implemented using a multimap, compared to a faster array only approach. This is not a perfect comparison, however you can see clearly in the early stages that it illustrates the fixed gap as the hashing function takes time to complete.
 
+![Benchmark Graph](https://raw.githubusercontent.com/thoxey/parallelvoronoi/master/readmeResources/Screen%20Shot%202018-05-09%20at%2016.34.00.png)
+![Benchmark Table](https://raw.githubusercontent.com/thoxey/parallelvoronoi/master/readmeResources/Screen%20Shot%202018-05-09%20at%2016.34.10.png)
 
+#### Graph of GPU Benchmarks (20 iterations)
+This graph shows only the GPU comparisons, with more iterations, there is an interesting relationship at lower values as the cost of crating the hash tables takes more time than just checking each of the cells, as discussed above. The fact they overtake each other a few separate times is likely due to external factors. The take away is therefore that in general using the brute diagram is rarely advantageous, and therefore using the nearest neighbor version is preferential.
+
+![Benchmark Graph](https://raw.githubusercontent.com/thoxey/parallelvoronoi/master/readmeResources/Screen%20Shot%202018-05-09%20at%2017.11.38.png)
+![Benchmark Table](https://raw.githubusercontent.com/thoxey/parallelvoronoi/master/readmeResources/Screen%20Shot%202018-05-09%20at%2017.30.36.png)
+
+## Results
 
 
 

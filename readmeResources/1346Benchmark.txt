@@ -1,0 +1,180 @@
+********* Start testing of benchmarker *********100
+Config: Using QtTest library 5.9.0, Qt 5.9.0 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 5.3.1 20160406 (Red Hat 5.3.1-6))
+PASS   : benchmarker::initTestCase()
+PASS   : benchmarker::benchmarkCPUbrute()
+RESULT : benchmarker::benchmarkCPUbrute():
+     242.5 msecs per iteration (total: 1,213, iterations: 5)
+PASS   : benchmarker::benchmarkCPUNN()
+RESULT : benchmarker::benchmarkCPUNN():
+     328.3 msecs per iteration (total: 1,642, iterations: 5)
+PASS   : benchmarker::benchmarkGPUbrute()
+RESULT : benchmarker::benchmarkGPUbrute():
+     229.4 msecs per iteration (total: 1,147, iterations: 5)
+PASS   : benchmarker::benchmarkGPUNN()
+RESULT : benchmarker::benchmarkGPUNN():
+     230.1 msecs per iteration (total: 1,151, iterations: 5)
+PASS   : benchmarker::cleanupTestCase()
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 17605ms
+********* Finished testing of benchmarker *********
+********* Start testing of benchmarker *********200
+Config: Using QtTest library 5.9.0, Qt 5.9.0 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 5.3.1 20160406 (Red Hat 5.3.1-6))
+PASS   : benchmarker::initTestCase()
+PASS   : benchmarker::benchmarkCPUbrute()
+RESULT : benchmarker::benchmarkCPUbrute():
+     474.1 msecs per iteration (total: 2,371, iterations: 5)
+PASS   : benchmarker::benchmarkCPUNN()
+RESULT : benchmarker::benchmarkCPUNN():
+     563.2 msecs per iteration (total: 2,816, iterations: 5)
+PASS   : benchmarker::benchmarkGPUbrute()
+RESULT : benchmarker::benchmarkGPUbrute():
+     253.1 msecs per iteration (total: 1,266, iterations: 5)
+PASS   : benchmarker::benchmarkGPUNN()
+RESULT : benchmarker::benchmarkGPUNN():
+     261.6 msecs per iteration (total: 1,308, iterations: 5)
+PASS   : benchmarker::cleanupTestCase()
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 15966ms
+********* Finished testing of benchmarker *********
+********* Start testing of benchmarker *********300
+Config: Using QtTest library 5.9.0, Qt 5.9.0 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 5.3.1 20160406 (Red Hat 5.3.1-6))
+PASS   : benchmarker::initTestCase()
+PASS   : benchmarker::benchmarkCPUbrute()
+RESULT : benchmarker::benchmarkCPUbrute():
+     700.2 msecs per iteration (total: 3,501, iterations: 5)
+PASS   : benchmarker::benchmarkCPUNN()
+RESULT : benchmarker::benchmarkCPUNN():
+     796.2 msecs per iteration (total: 3,981, iterations: 5)
+PASS   : benchmarker::benchmarkGPUbrute()
+RESULT : benchmarker::benchmarkGPUbrute():
+     272.3 msecs per iteration (total: 1,362, iterations: 5)
+PASS   : benchmarker::benchmarkGPUNN()
+RESULT : benchmarker::benchmarkGPUNN():
+     237.4 msecs per iteration (total: 1,187, iterations: 5)
+PASS   : benchmarker::cleanupTestCase()
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 20501ms
+********* Finished testing of benchmarker *********
+********* Start testing of benchmarker *********400
+Config: Using QtTest library 5.9.0, Qt 5.9.0 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 5.3.1 20160406 (Red Hat 5.3.1-6))
+PASS   : benchmarker::initTestCase()
+PASS   : benchmarker::benchmarkCPUbrute()
+RESULT : benchmarker::benchmarkCPUbrute():
+     925.6 msecs per iteration (total: 4,628, iterations: 5)
+PASS   : benchmarker::benchmarkCPUNN()
+RESULT : benchmarker::benchmarkCPUNN():
+     1,045 msecs per iteration (total: 5,226, iterations: 5)
+PASS   : benchmarker::benchmarkGPUbrute()
+RESULT : benchmarker::benchmarkGPUbrute():
+     285.0 msecs per iteration (total: 1,425, iterations: 5)
+PASS   : benchmarker::benchmarkGPUNN()
+RESULT : benchmarker::benchmarkGPUNN():
+     302.0 msecs per iteration (total: 1,510, iterations: 5)
+PASS   : benchmarker::cleanupTestCase()
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 33657ms
+********* Finished testing of benchmarker *********
+********* Start testing of benchmarker *********500
+Config: Using QtTest library 5.9.0, Qt 5.9.0 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 5.3.1 20160406 (Red Hat 5.3.1-6))
+PASS   : benchmarker::initTestCase()
+PASS   : benchmarker::benchmarkCPUbrute()
+RESULT : benchmarker::benchmarkCPUbrute():
+     1,151 msecs per iteration (total: 5,757, iterations: 5)
+PASS   : benchmarker::benchmarkCPUNN()
+RESULT : benchmarker::benchmarkCPUNN():
+     1,311 msecs per iteration (total: 6,558, iterations: 5)
+PASS   : benchmarker::benchmarkGPUbrute()
+RESULT : benchmarker::benchmarkGPUbrute():
+     303.0 msecs per iteration (total: 1,515, iterations: 5)
+PASS   : benchmarker::benchmarkGPUNN()
+RESULT : benchmarker::benchmarkGPUNN():
+     244.5 msecs per iteration (total: 1,223, iterations: 5)
+PASS   : benchmarker::cleanupTestCase()
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 30478ms
+********* Finished testing of benchmarker *********
+********* Start testing of benchmarker *********600
+Config: Using QtTest library 5.9.0, Qt 5.9.0 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 5.3.1 20160406 (Red Hat 5.3.1-6))
+PASS   : benchmarker::initTestCase()
+PASS   : benchmarker::benchmarkCPUbrute()
+RESULT : benchmarker::benchmarkCPUbrute():
+     1,379 msecs per iteration (total: 6,895, iterations: 5)
+PASS   : benchmarker::benchmarkCPUNN()
+RESULT : benchmarker::benchmarkCPUNN():
+     1,587 msecs per iteration (total: 7,939, iterations: 5)
+PASS   : benchmarker::benchmarkGPUbrute()
+RESULT : benchmarker::benchmarkGPUbrute():
+     323.1 msecs per iteration (total: 1,616, iterations: 5)
+PASS   : benchmarker::benchmarkGPUNN()
+RESULT : benchmarker::benchmarkGPUNN():
+     249.4 msecs per iteration (total: 1,247, iterations: 5)
+PASS   : benchmarker::cleanupTestCase()
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 60064ms
+********* Finished testing of benchmarker *********
+********* Start testing of benchmarker *********700
+Config: Using QtTest library 5.9.0, Qt 5.9.0 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 5.3.1 20160406 (Red Hat 5.3.1-6))
+PASS   : benchmarker::initTestCase()
+PASS   : benchmarker::benchmarkCPUbrute()
+RESULT : benchmarker::benchmarkCPUbrute():
+     1,599 msecs per iteration (total: 7,998, iterations: 5)
+PASS   : benchmarker::benchmarkCPUNN()
+RESULT : benchmarker::benchmarkCPUNN():
+     1,885 msecs per iteration (total: 9,425, iterations: 5)
+PASS   : benchmarker::benchmarkGPUbrute()
+RESULT : benchmarker::benchmarkGPUbrute():
+     341.0 msecs per iteration (total: 1,705, iterations: 5)
+PASS   : benchmarker::benchmarkGPUNN()
+RESULT : benchmarker::benchmarkGPUNN():
+     254.0 msecs per iteration (total: 1,270, iterations: 5)
+PASS   : benchmarker::cleanupTestCase()
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 48072ms
+********* Finished testing of benchmarker *********
+********* Start testing of benchmarker *********800
+Config: Using QtTest library 5.9.0, Qt 5.9.0 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 5.3.1 20160406 (Red Hat 5.3.1-6))
+PASS   : benchmarker::initTestCase()
+PASS   : benchmarker::benchmarkCPUbrute()
+RESULT : benchmarker::benchmarkCPUbrute():
+     1,822 msecs per iteration (total: 9,113, iterations: 5)
+PASS   : benchmarker::benchmarkCPUNN()
+RESULT : benchmarker::benchmarkCPUNN():
+     2,187.1 msecs per iteration (total: 10,936, iterations: 5)
+PASS   : benchmarker::benchmarkGPUbrute()
+RESULT : benchmarker::benchmarkGPUbrute():
+     360.6 msecs per iteration (total: 1,803, iterations: 5)
+PASS   : benchmarker::benchmarkGPUNN()
+RESULT : benchmarker::benchmarkGPUNN():
+     254.8 msecs per iteration (total: 1,274, iterations: 5)
+PASS   : benchmarker::cleanupTestCase()
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 46640ms
+********* Finished testing of benchmarker *********
+********* Start testing of benchmarker *********900
+Config: Using QtTest library 5.9.0, Qt 5.9.0 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 5.3.1 20160406 (Red Hat 5.3.1-6))
+PASS   : benchmarker::initTestCase()
+PASS   : benchmarker::benchmarkCPUbrute()
+RESULT : benchmarker::benchmarkCPUbrute():
+     2,047.2 msecs per iteration (total: 10,236, iterations: 5)
+PASS   : benchmarker::benchmarkCPUNN()
+RESULT : benchmarker::benchmarkCPUNN():
+     2,499.8 msecs per iteration (total: 12,499, iterations: 5)
+PASS   : benchmarker::benchmarkGPUbrute()
+RESULT : benchmarker::benchmarkGPUbrute():
+     378.1 msecs per iteration (total: 1,891, iterations: 5)
+PASS   : benchmarker::benchmarkGPUNN()
+RESULT : benchmarker::benchmarkGPUNN():
+     261.8 msecs per iteration (total: 1,309, iterations: 5)
+PASS   : benchmarker::cleanupTestCase()
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 52358ms
+********* Finished testing of benchmarker *********
+********* Start testing of benchmarker *********1000
+Config: Using QtTest library 5.9.0, Qt 5.9.0 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 5.3.1 20160406 (Red Hat 5.3.1-6))
+PASS   : benchmarker::initTestCase()
+PASS   : benchmarker::benchmarkCPUbrute()
+RESULT : benchmarker::benchmarkCPUbrute():
+     2,275.5 msecs per iteration (total: 11,378, iterations: 5)
+PASS   : benchmarker::benchmarkCPUNN()
+RESULT : benchmarker::benchmarkCPUNN():
+     2,829.1 msecs per iteration (total: 14,146, iterations: 5)
+PASS   : benchmarker::benchmarkGPUbrute()
+RESULT : benchmarker::benchmarkGPUbrute():
+     397.3 msecs per iteration (total: 1,987, iterations: 5)
+PASS   : benchmarker::benchmarkGPUNN()
+RESULT : benchmarker::benchmarkGPUNN():
+     265.8 msecs per iteration (total: 1,329, iterations: 5)
+PASS   : benchmarker::cleanupTestCase()
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 57947ms
+********* Finished testing of benchmarker *********

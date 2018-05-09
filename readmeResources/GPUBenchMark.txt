@@ -1,0 +1,51 @@
+
+100
+RESULT : benchmarker::benchmarkGPUbrute():
+     232.9 msecs per iteration (total: 4,659, iterations: 20)
+RESULT : benchmarker::benchmarkGPUNN():
+     302.0 msecs per iteration (total: 6,041, iterations: 20)
+200
+RESULT : benchmarker::benchmarkGPUbrute():
+     256.0 msecs per iteration (total: 5,121, iterations: 20)
+RESULT : benchmarker::benchmarkGPUNN():
+     237.1 msecs per iteration (total: 4,744, iterations: 20)
+300
+RESULT : benchmarker::benchmarkGPUbrute():
+     275.9 msecs per iteration (total: 5,519, iterations: 20)
+RESULT : benchmarker::benchmarkGPUNN():
+     284.6 msecs per iteration (total: 5,693, iterations: 20)
+400
+RESULT : benchmarker::benchmarkGPUbrute():
+     285.1 msecs per iteration (total: 5,704, iterations: 20)
+RESULT : benchmarker::benchmarkGPUNN():
+     302.1 msecs per iteration (total: 6,044, iterations: 20)
+500
+RESULT : benchmarker::benchmarkGPUbrute():
+     303.4 msecs per iteration (total: 6,069, iterations: 20)
+RESULT : benchmarker::benchmarkGPUNN():
+     296.7 msecs per iteration (total: 5,935, iterations: 20)
+600
+RESULT : benchmarker::benchmarkGPUbrute():
+     323.2 msecs per iteration (total: 6,465, iterations: 20)
+RESULT : benchmarker::benchmarkGPUNN():
+     251.7 msecs per iteration (total: 5,035, iterations: 20)
+700
+RESULT : benchmarker::benchmarkGPUbrute():
+     343.9 msecs per iteration (total: 6,879, iterations: 20)
+RESULT : benchmarker::benchmarkGPUNN():
+     253.8 msecs per iteration (total: 5,076, iterations: 20)
+800
+RESULT : benchmarker::benchmarkGPUbrute():
+     360.6 msecs per iteration (total: 7,212, iterations: 20)
+RESULT : benchmarker::benchmarkGPUNN():
+     260.1 msecs per iteration (total: 5,202, iterations: 20)
+900
+RESULT : benchmarker::benchmarkGPUbrute():
+     379.3 msecs per iteration (total: 7,586, iterations: 20)
+RESULT : benchmarker::benchmarkGPUNN():
+     263.1 msecs per iteration (total: 5,264, iterations: 20)
+1000
+RESULT : benchmarker::benchmarkGPUbrute():
+     398.3 msecs per iteration (total: 7,968, iterations: 20)
+RESULT : benchmarker::benchmarkGPUNN():
+     267.8 msecs per iteration (total: 5,357, iterations: 20)

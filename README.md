@@ -5,7 +5,7 @@
 ## Introduction
 My final year programming project for university, for the unit Advanced programming.
 
-#### The Breif
+#### The Brief
 
 >You are required to identify and evaluate performance gains in a substantial software engineering
 project by applying advanced programming techniques (such as parallel programming, CUDA,
@@ -101,7 +101,7 @@ There is an obvious optimisation to be made here, reducing the size of the loop.
 #### Nearest Neighbor
 Splitting the full domain into sub grids allows for the threads in the main algorithm to have far fewer iterations. For example if we split the domain into 64 sub grids and lets say we have 128 cells, the brute version needs 128 iterations, assuming equal cell distribution a cell with all 8 neighbors only needs to iterate over 18 cells, saving 110 iterations, on a 1k image thats 112640 saved iterations!
 
-To do this we generate the points as before, however there are a few added steps. First we complete a point has, this entails determining which of the sub-grids the cell's centre is in. Once we have this, we calculate the occupancy of each of these sub grids (i.e. how many cell centres are in each).
+To do this we generate the points as before, however there are a few added steps. First we complete a point hash, this entails determining which of the sub-grids the cell's centre is in. Once we have this, we calculate the occupancy of each of these sub grids (i.e. how many cell centres are in each).
 
 With this in mind we sort the cell centre positions based on their hash value, this is done using a zip iterator in thrust, as below:
 
@@ -130,7 +130,7 @@ This graph shows only the GPU comparisons, with more iterations, there is an int
 ![Benchmark Graph](https://raw.githubusercontent.com/thoxey/parallelvoronoi/master/readmeResources/Screen%20Shot%202018-05-09%20at%2017.11.38.png)
 ![Benchmark Table](https://raw.githubusercontent.com/thoxey/parallelvoronoi/master/readmeResources/Screen%20Shot%202018-05-09%20at%2017.30.36.png)
 
-## Furute Work
+## Future Work
 
 There are some errors in the nearest neighbor GPU diagrams, the can sometimes iterate over too few cells, or there is a clamping effect near the edges, as seen below:
 

@@ -15,43 +15,40 @@ private slots:
     void benchmarkGPUNN();
 private:
     uint imageDim = 1024;
+    uint cellCount = 400;
 };
 
 void benchmarker::benchmarkCPUbrute()
 {
     mockCPUSolver cpuBenchmarker;
-    for(uint cellStep = 50; cellStep <= 1000; cellStep+=50)
-        QBENCHMARK
-        {
-            cpuBenchmarker.bruteBenchMark(vec2(imageDim, imageDim), cellStep);
-        }
+    QBENCHMARK
+    {
+        cpuBenchmarker.bruteBenchMark(vec2(imageDim, imageDim), cellCount);
+    }
 }
 void benchmarker::benchmarkCPUNN()
 {
     mockCPUSolver cpuBenchmarker;
-    for(uint cellStep = 50; cellStep <= 1000; cellStep+=50)
-        QBENCHMARK
-        {
-            cpuBenchmarker.NNBenchMark(vec2(imageDim, imageDim), cellStep);
-        }
+    QBENCHMARK
+    {
+        cpuBenchmarker.NNBenchMark(vec2(imageDim, imageDim), cellCount);
+    }
 }
 void benchmarker::benchmarkGPUbrute()
 {
     mockGPUSolver gpuBenchmarker;
-    for(uint cellStep = 50; cellStep <= 1000; cellStep+=50)
-        QBENCHMARK
-        {
-            gpuBenchmarker.bruteBenchMark(imageDim, cellStep);
-        }
+    QBENCHMARK
+    {
+        gpuBenchmarker.bruteBenchMark(imageDim, cellCount);
+    }
 }
 void benchmarker::benchmarkGPUNN()
 {
     mockGPUSolver gpuBenchmarker;
-    for(uint cellStep = 50; cellStep <= 1000; cellStep+=50)
-        QBENCHMARK
-        {
-            gpuBenchmarker.NNBenchMark(imageDim, cellStep);
-        }
+    QBENCHMARK
+    {
+        gpuBenchmarker.NNBenchMark(imageDim, cellCount);
+    }
 }
 QTEST_MAIN(benchmarker)
 #include "tests.moc"

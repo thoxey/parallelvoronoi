@@ -1,5 +1,7 @@
 # Parallel Voronoi
 
+![Final Image](https://raw.githubusercontent.com/thoxey/parallelvoronoi/master/readmeResources/1.png)
+
 ## Introduction
 My final year programming project for university, for the unit Advanced programming.
 
@@ -128,9 +130,15 @@ This graph shows only the GPU comparisons, with more iterations, there is an int
 ![Benchmark Graph](https://raw.githubusercontent.com/thoxey/parallelvoronoi/master/readmeResources/Screen%20Shot%202018-05-09%20at%2017.11.38.png)
 ![Benchmark Table](https://raw.githubusercontent.com/thoxey/parallelvoronoi/master/readmeResources/Screen%20Shot%202018-05-09%20at%2017.30.36.png)
 
-## Results
+## Furute Work
 
+There are some errors in the nearest neighbor GPU diagrams, the can sometimes iterate over too few cells, or there is a clamping effect near the edges, as seen below:
 
+![Final Image](https://raw.githubusercontent.com/thoxey/parallelvoronoi/master/readmeResources/2.png)
+
+This is the first priority to fix, however it was not possible in the timeframe of the project.
+
+The image name box doesn't work as intended and all images are named export.png, this is not really a problem but might want to be changed in future.
 
 
 
